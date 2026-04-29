@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Texta — A penny a text</title>
+<meta name="description" content="Bulk SMS for small business. $20/month and one cent per text. No contracts, no bloat, no surprises.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Sora:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #111111;
+    --white: #ffffff;
+    --gray-50: #f9f9f9;
+    --gray-100: #f0f0f0;
+    --gray-200: #e8e8e8;
+    --gray-400: #aaaaaa;
+    --gray-600: #666666;
+    --green-bg: #eaf3de;
+    --green-border: #c0dd97;
+    --green-text: #27500a;
+    --amber-bg: #faeeda;
+    --amber-border: #fac775;
+    --amber-text: #633806;
+    --red: #e24b4a;
+    --font-marker: 'Permanent Marker', cursive;
+    --font-sora: 'Sora', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-inter);
+    background: var(--white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--gray-200);
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--font-marker);
+    font-size: 26px;
+    color: var(--black);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .nav-links a {
+    font-family: var(--font-inter);
+    font-size: 13px;
+    color: var(--gray-600);
+    transition: color 0.15s;
+  }
+
+  .nav-links a:hover { color: var(--black); }
+
+  .btn {
+    font-family: var(--font-sora);
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 9px 20px;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s, transform 0.1s;
+    display: inline-block;
+  }
+
+  .btn:active { transform: scale(0.98); }
+
+  .btn-primary {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--black);
+    border: 0.5px solid var(--gray-400);
+  }
+
+  .btn-outline:hover { border-color: var(--black); }
+
+  .btn-lg {
+    font-size: 15px;
+    padding: 14px 32px;
+    border-radius: 10px;
+  }
+
+  .btn-xl {
+    font-size: 16px;
+    padding: 16px 40px;
+    border-radius: 10px;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 96px 40px 80px;
+    text-align: center;
+    border-bottom: 0.5px solid var(--gray-100);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 20px;
+  }
+
+  .hero-headline {
+    font-family: var(--font-marker);
+    font-size: 80px;
+    line-height: 1.0;
+    color: var(--black);
+    margin-bottom: 24px;
+  }
+
+  .hero-sub {
+    font-family: var(--font-inter);
+    font-size: 18px;
+    color: var(--gray-600);
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto 36px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .hero-note {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  /* PRICE STRIP */
+  .price-strip {
+    background: var(--gray-50);
+    border-bottom: 0.5px solid var(--gray-100);
+    padding: 36px 40px;
+  }
+
+  .price-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .price-item {
+    text-align: center;
+    padding: 0 24px;
+  }
+
+  .price-item + .price-item {
+    border-left: 0.5px solid var(--gray-200);
+  }
+
+  .price-big {
+    font-family: var(--font-marker);
+    font-size: 44px;
+    color: var(--black);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .price-lbl {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 72px 40px;
+    border-bottom: 0.5px solid var(--gray-100);
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    font-family: var(--font-sora);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-family: var(--font-marker);
+    font-size: 38px;
+    color: var(--black);
+    margin-bottom: 14px;
+    line-height: 1.15;
+  }
+
+  .section-body {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    color: var(--gray-600);
+    line-height: 1.75;
+    max-width: 560px;
+  }
+
+  /* PILLARS */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .pillar {
+    border: 0.5px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+
+  .pillar:hover { border-color: var(--gray-400); }
+
+  .pillar-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--gray-50);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pillar-title {
+    font-family: var(--font-sora);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+
+  .pillar-body {
+    font-family: var(--font-inter);
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.65;
+  }
+
+  /* SEGMENT EXPLAINER */
+  .segment-explainer {
+    background: var(--gray-50);
+    border: 0.5px solid var(--gray-200);
+    border-radius: 14px;
+    padding: 32px;
+    margin-top: 36px;
+  }
+
+  .seg-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .seg-col {
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .seg-col.green { background: var(--green-bg); border: 0.5px solid var(--green-border); }
+  .seg-col.amber { background: var(--amber-bg); border: 0.5px solid var(--amber-border); }
+
+  .seg-tag {
+    font-family: var(--font-sora);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .seg-col.green .seg-tag { color: var(--green-text); }
+  .seg-col.amber .seg-tag { color: var(--amber-text); }
+
+  .seg-desc {
+    font-family: var(--font-inter);
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .seg-col.green .seg-desc { color: var(--green-text); }
+  .seg-col.amber .seg-desc { color: var(--amber-text); }
+
+  .seg-example {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-family: var(--font-inter);
+    font-size: 13px;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .seg-col.green .seg-example { border: 0.5px solid var(--green-border); }
+  .seg-col.amber .seg-example { border: 0.5px solid var(--amber-border); }
+
+  .seg-meta {
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .seg-footer {
+    padding-top: 20px;
+    border-top: 0.5px solid var(--gray-200);
+    font-family: var(--font-inter);
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.65;
+  }
+
+  .seg-footer strong { color: var(--black); font-weight: 500; }
+
+  /* COMPARISON TABLE */
+  .comp-wrap {
+    margin-top: 36px;
+    border: 0.5px solid var(--gray-200);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    table-layout: fixed;
+  }
+
+  .comp-table th {
+    font-family: var(--font-sora);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    padding: 14px 20px;
+    text-align: left;
+    background: var(--gray-50);
+    border-bottom: 0.5px solid var(--gray-200);
+  }
+
+  .comp-table td {
+    padding: 14px 20px;
+    font-family: var(--font-inter);
+    color: #444;
+    border-bottom: 0.5px solid var(--gray-100);
+    vertical-align: middle;
+  }
+
+  .comp-table tr:last-child td { border-bottom: none; }
+
+  .comp-table tr.you td {
+    background: var(--black);
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .badge-you {
+    display: inline-block;
+    background: var(--white);
+    color: var(--black);
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 10px;
+    font-family: var(--font-sora);
+    font-weight: 600;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .more {
+    font-family: var(--font-inter);
+    font-size: 11px;
+    color: var(--red);
+    margin-left: 6px;
+  }
+
+  /* CALCULATOR */
+  .calc-wrap {
+    background: var(--gray-50);
+    border: 0.5px solid var(--gray-200);
+    border-radius: 14px;
+    padding: 32px;
+    margin-top: 36px;
+  }
+
+  .calc-row { margin-bottom: 24px; }
+
+  .calc-label {
+    font-family: var(--font-sora);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .calc-label span {
+    font-family: var(--font-inter);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--black);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  input[type=range] {
+    width: 100%;
+    height: 4px;
+    -webkit-appearance: none;
+    background: var(--gray-200);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--black);
+    cursor: pointer;
+  }
+
+  input[type=range]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--black);
+    cursor: pointer;
+    border: none;
+  }
+
+  .calc-results {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .calc-card {
+    border-radius: 10px;
+    padding: 16px 12px;
+    text-align: center;
+    border: 0.5px solid var(--gray-200);
+    background: var(--white);
+  }
+
+  .calc-card.you {
+    background: var(--black);
+    border-color: var(--black);
+  }
+
+  .calc-card-name {
+    font-family: var(--font-sora);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .calc-card.you .calc-card-name { color: #888; }
+  .calc-card:not(.you) .calc-card-name { color: var(--gray-400); }
+
+  .calc-card-price {
+    font-family: var(--font-marker);
+    font-size: 24px;
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .calc-card.you .calc-card-price { color: var(--white); }
+  .calc-card:not(.you) .calc-card-price { color: var(--black); }
+
+  .calc-card-save {
+    font-family: var(--font-inter);
+    font-size: 11px;
+  }
+
+  .calc-card.you .calc-card-save { color: #666; }
+  .calc-card:not(.you) .calc-card-save { color: var(--red); }
+
+  /* FINAL CTA */
+  .final-cta {
+    background: var(--black);
+    padding: 96px 40px;
+    text-align: center;
+  }
+
+  .final-cta .eyebrow { color: #555; }
+  .final-cta .hero-headline { color: var(--white); font-size: 64px; margin-bottom: 20px; }
+  .final-cta .hero-sub { color: #666; }
+  .final-cta .hero-note { color: #444; margin-top: 16px; }
+
+  .btn-white {
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--font-sora);
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 40px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    margin-top: 36px;
+    display: inline-block;
+  }
+
+  .btn-white:hover { opacity: 0.9; }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 40px;
+    border-top: 0.5px solid var(--gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: var(--font-marker);
+    font-size: 20px;
+    color: var(--black);
+  }
+
+  .footer-note {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero > * {
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero .eyebrow { animation-delay: 0.05s; }
+  .hero .hero-headline { animation-delay: 0.15s; }
+  .hero .hero-sub { animation-delay: 0.25s; }
+  .hero .hero-cta { animation-delay: 0.35s; }
+  .hero .hero-note { animation-delay: 0.45s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav { padding: 0 20px; }
+    .nav-links a { display: none; }
+    .hero { padding: 60px 24px 56px; }
+    .hero-headline { font-size: 52px; }
+    .hero-sub { font-size: 16px; }
+    .hero-cta { flex-direction: column; }
+    .price-strip { padding: 28px 24px; }
+    .section { padding: 52px 24px; }
+    .section-title { font-size: 30px; }
+    .pillars { grid-template-columns: 1fr; }
+    .seg-grid { grid-template-columns: 1fr; }
+    .calc-results { grid-template-columns: repeat(2, 1fr); }
+    .comp-table th:nth-child(3),
+    .comp-table td:nth-child(3) { display: none; }
+    .final-cta { padding: 64px 24px; }
+    .final-cta .hero-headline { font-size: 44px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Texta</div>
+  <div class="nav-links">
+    <a href="#how-it-works">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#calculator">Calculator</a>
+    <a href="#faq">FAQ</a>
+    <a href="#" class="btn btn-primary" style="margin-left:8px">Start free</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="eyebrow">Bulk SMS for small business</div>
+  <h1 class="hero-headline">A penny<br>a text.</h1>
+  <p class="hero-sub">$20/month and one cent per text. No contracts, no bloat, no surprises. Just clean, reliable SMS that any small business can afford.</p>
+  <div class="hero-cta">
+    <a href="#" class="btn btn-primary btn-lg">Start free — get $5 in credits</a>
+    <a href="#how-it-works" class="btn btn-outline btn-lg">See how it works</a>
+  </div>
+  <div class="hero-note">No credit card required &nbsp;·&nbsp; Credits never expire &nbsp;·&nbsp; Cancel anytime</div>
+</section>
+
+<div class="price-strip" id="pricing">
+  <div class="price-row">
+    <div class="price-item">
+      <span class="price-big">$20</span>
+      <span class="price-lbl">per month, flat</span>
+    </div>
+    <div class="price-item">
+      <span class="price-big">1¢</span>
+      <span class="price-lbl">per text segment</span>
+    </div>
+    <div class="price-item">
+      <span class="price-big">$0</span>
+      <span class="price-lbl">for inbound replies</span>
+    </div>
+  </div>
+</div>
+
+<div style="max-width:860px;margin:0 auto">
+
+<section class="section" id="how-it-works">
+  <div class="section-tag">How it works</div>
+  <h2 class="section-title">You only pay for what you send.</h2>
+  <p class="section-body">Load credits when you need them. They never expire. Set auto-recharge and your balance tops up automatically when it gets low — your campaigns never get cut off mid-send.</p>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="2" y="2" width="12" height="12" rx="2" stroke="#111" stroke-width="1.2"/>
+          <path d="M5 8h6M5 5.5h4M5 10.5h5" stroke="#111" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="pillar-title">Prepaid credits</div>
+      <p class="pillar-body">Load your balance in $25, $50, $100, or $250 increments. Spend only what you use. No monthly surprise invoices.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 2v4l2.5 2.5" stroke="#111" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="8" cy="8" r="6" stroke="#111" stroke-width="1.2"/>
+        </svg>
+      </div>
+      <div class="pillar-title">Credits never expire</div>
+      <p class="pillar-body">Load up in January, use in July. Your credits stay in your account as long as you do. No use-it-or-lose-it pressure.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M2 8a6 6 0 1010.5 4M14 8a6 6 0 00-1-3.3" stroke="#111" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M12 12v3h3" stroke="#111" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="pillar-title">Auto-recharge</div>
+      <p class="pillar-body">Set a low-balance threshold and Texta tops you up automatically. Set it once and never think about it again.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-tag">Pricing clarity</div>
+  <h2 class="section-title">What exactly is a penny a text?</h2>
+  <p class="section-body">Most messages cost exactly one cent. A standard SMS holds up to 160 plain-text characters — that's one segment, one cent. We show you the segment count as you type so there are never any surprises.</p>
+
+  <div class="segment-explainer">
+    <div class="seg-grid">
+      <div class="seg-col green">
+        <div class="seg-tag">1 segment = 1 cent</div>
+        <p class="seg-desc">Plain text under 160 characters. Most messages land here. This is the normal case.</p>
+        <div class="seg-example">
+          "Hey Sarah, our spring sale starts Friday — 20% off everything. Hope to see you there!"
+          <span class="seg-meta">89 characters &nbsp;·&nbsp; 1 segment &nbsp;·&nbsp; $0.01</span>
+        </div>
+      </div>
+      <div class="seg-col amber">
+        <div class="seg-tag">Watch for these</div>
+        <p class="seg-desc">Curly quotes, em dashes, or certain emojis trigger a different encoding that shrinks segments to 70 characters.</p>
+        <div class="seg-example">
+          The app warns you in the compose window the moment this happens — and shows you the simple fix before you send.
+          <span class="seg-meta">We catch it. You won't be surprised.</span>
+        </div>
+      </div>
+    </div>
+    <div class="seg-footer">
+      <strong>Sending images?</strong> MMS messages are 2.5 cents each, regardless of file size. That's still cheaper than every major competitor — even for image messages.
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-tag">Comparison</div>
+  <h2 class="section-title">What the others charge.</h2>
+  <p class="section-body">Based on 1,000 contacts texted twice a month — a normal small business workload. Use the calculator below to run your own numbers.</p>
+
+  <div class="comp-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Monthly base</th>
+          <th>Per message</th>
+          <th>Your total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="you">
+          <td>Texta <span class="badge-you">you</span></td>
+          <td>$20</td>
+          <td>$0.01</td>
+          <td>$40/mo</td>
+        </tr>
+        <tr>
+          <td>SimpleTexting</td>
+          <td>$79</td>
+          <td>$0.045</td>
+          <td>$169/mo <span class="more">4× more</span></td>
+        </tr>
+        <tr>
+          <td>EZTexting</td>
+          <td>$55</td>
+          <td>$0.05</td>
+          <td>$155/mo <span class="more">3.9× more</span></td>
+        </tr>
+        <tr>
+          <td>SlickText</td>
+          <td>$59</td>
+          <td>$0.04</td>
+          <td>$139/mo <span class="more">3.5× more</span></td>
+        </tr>
+        <tr>
+          <td>Podium</td>
+          <td>$299</td>
+          <td>included (capped)</td>
+          <td>$299/mo <span class="more">7.5× more</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="calculator">
+  <div class="section-tag">Calculator</div>
+  <h2 class="section-title">Run your own numbers.</h2>
+  <p class="section-body">Drag the sliders to match your business. See exactly what you'd pay on Texta versus the competition every month.</p>
+
+  <div class="calc-wrap">
+    <div class="calc-row">
+      <div class="calc-label">Contacts on your list <span id="contacts-out">1,000</span></div>
+      <input type="range" id="contacts" min="100" max="10000" step="100" value="1000">
+    </div>
+    <div class="calc-row">
+      <div class="calc-label">Texts per contact per month <span id="sends-out">2</span></div>
+      <input type="range" id="sends" min="1" max="12" step="1" value="2">
+    </div>
+    <div class="calc-row" style="margin-bottom:0">
+      <div class="calc-label">Average message length <span id="segs-out">1 segment (under 160 chars)</span></div>
+      <input type="range" id="segs" min="1" max="3" step="1" value="1">
+    </div>
+
+    <div class="calc-results">
+      <div class="calc-card you">
+        <div class="calc-card-name">Texta</div>
+        <span class="calc-card-price" id="r-texta">$40</span>
+        <div class="calc-card-save">per month</div>
+      </div>
+      <div class="calc-card">
+        <div class="calc-card-name">SimpleTexting</div>
+        <span class="calc-card-price" id="r-st">$169</span>
+        <div class="calc-card-save" id="s-st">you save $129/mo</div>
+      </div>
+      <div class="calc-card">
+        <div class="calc-card-name">EZTexting</div>
+        <span class="calc-card-price" id="r-ez">$155</span>
+        <div class="calc-card-save" id="s-ez">you save $115/mo</div>
+      </div>
+      <div class="calc-card">
+        <div class="calc-card-name">SlickText</div>
+        <span class="calc-card-price" id="r-sl">$139</span>
+        <div class="calc-card-save" id="s-sl">you save $99/mo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="section-tag">FAQ</div>
+  <h2 class="section-title">Common questions.</h2>
+
+  <div style="margin-top:32px;display:flex;flex-direction:column;gap:0">
+
+    <details style="border-top:0.5px solid var(--gray-200);padding:20px 0;cursor:pointer">
+      <summary style="font-family:var(--font-sora);font-size:15px;font-weight:600;color:var(--black);list-style:none;display:flex;justify-content:space-between;align-items:center">
+        What is a text segment?
+        <span style="font-size:20px;color:var(--gray-400);font-weight:300;flex-shrink:0;margin-left:16px">+</span>
+      </summary>
+      <p style="font-family:var(--font-inter);font-size:14px;color:var(--gray-600);line-height:1.7;margin-top:14px;max-width:560px">A standard text message holds up to 160 characters. That's one segment — one cent. If your message is longer than 160 characters, it splits into multiple segments and costs one cent each. Most short messages are a single segment. The app shows you the segment count as you write so there are no surprises.</p>
+    </details>
+
+    <details style="border-top:0.5px solid var(--gray-200);padding:20px 0;cursor:pointer">
+      <summary style="font-family:var(--font-sora);font-size:15px;font-weight:600;color:var(--black);list-style:none;display:flex;justify-content:space-between;align-items:center">
+        What about emojis and special characters?
+        <span style="font-size:20px;color:var(--gray-400);font-weight:300;flex-shrink:0;margin-left:16px">+</span>
+      </summary>
+      <p style="font-family:var(--font-inter);font-size:14px;color:var(--gray-600);line-height:1.7;margin-top:14px;max-width:560px">Certain characters — like curly quotes, em dashes, or some emojis — trigger a different encoding that reduces segment size to 70 characters. The app warns you the moment this happens and shows you the fix. For best results, keep messages in plain text.</p>
+    </details>
+
+    <details style="border-top:0.5px solid var(--gray-200);padding:20px 0;cursor:pointer">
+      <summary style="font-family:var(--font-sora);font-size:15px;font-weight:600;color:var(--black);list-style:none;display:flex;justify-content:space-between;align-items:center">
+        Do I pay to receive messages?
+        <span style="font-size:20px;color:var(--gray-400);font-weight:300;flex-shrink:0;margin-left:16px">+</span>
+      </summary>
+      <p style="font-family:var(--font-inter);font-size:14px;color:var(--gray-600);line-height:1.7;margin-top:14px;max-width:560px">No. You only pay when you send. Inbound replies are free.</p>
+    </details>
+
+    <details style="border-top:0.5px solid var(--gray-200);padding:20px 0;cursor:pointer">
+      <summary style="font-family:var(--font-sora);font-size:15px;font-weight:600;color:var(--black);list-style:none;display:flex;justify-content:space-between;align-items:center">
+        What happens when my credit runs low?
+        <span style="font-size:20px;color:var(--gray-400);font-weight:300;flex-shrink:0;margin-left:16px">+</span>
+      </summary>
+      <p style="font-family:var(--font-inter);font-size:14px;color:var(--gray-600);line-height:1.7;margin-top:14px;max-width:560px">You can set up auto-recharge so your balance tops up automatically when it drops below a threshold you choose. Or add credits manually any time. Either way you stay in control and your campaigns never get cut off unexpectedly.</p>
+    </details>
+
+    <details style="border-top:0.5px solid var(--gray-200);padding:20px 0;cursor:pointer">
+      <summary style="font-family:var(--font-sora);font-size:15px;font-weight:600;color:var(--black);list-style:none;display:flex;justify-content:space-between;align-items:center">
+        Can I send images?
+        <span style="font-size:20px;color:var(--gray-400);font-weight:300;flex-shrink:0;margin-left:16px">+</span>
+      </summary>
+      <p style="font-family:var(--font-inter);font-size:14px;color:var(--gray-600);line-height:1.7;margin-top:14px;max-width:560px">Yes. Image messages (MMS) cost 2.5 cents each, regardless of file size. You can attach photos, promotional graphics, or GIFs directly in the compose window. That's still cheaper than what the major competitors charge for plain text.</p>
+    </details>
+
+    <details style="border-top:0.5px solid var(--gray-200);border-bottom:0.5px solid var(--gray-200);padding:20px 0;cursor:pointer">
+      <summary style="font-family:var(--font-sora);font-size:15px;font-weight:600;color:var(--black);list-style:none;display:flex;justify-content:space-between;align-items:center">
+        Can I cancel anytime?
+        <span style="font-size:20px;color:var(--gray-400);font-weight:300;flex-shrink:0;margin-left:16px">+</span>
+      </summary>
+      <p style="font-family:var(--font-inter);font-size:14px;color:var(--gray-600);line-height:1.7;margin-top:14px;max-width:560px">Yes. No contracts, no cancellation fees. Your unused message credits never expire — if you cancel and come back later, your credits are still there waiting for you.</p>
+    </details>
+
+  </div>
+</section>
+
+</div>
+
+<div class="final-cta">
+  <div class="eyebrow">No contracts. No bloat. No surprises.</div>
+  <h2 class="hero-headline">Start texting<br>for a penny.</h2>
+  <p class="hero-sub">Get $5 in free credits when you sign up. No card required.</p>
+  <a href="#" class="btn-white">Create your free account</a>
+  <div class="hero-note">Credits never expire &nbsp;·&nbsp; Cancel anytime</div>
+</div>
+
+<footer>
+  <div class="footer-logo">Texta</div>
+  <div class="footer-note">© 2026 Texta &nbsp;·&nbsp; <a href="#" style="color:inherit">Privacy</a> &nbsp;·&nbsp; <a href="#" style="color:inherit">Terms</a></div>
+</footer>
+
+<script>
+  function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+
+  function calc() {
+    var c = parseInt(document.getElementById('contacts').value);
+    var s = parseInt(document.getElementById('sends').value);
+    var sg = parseInt(document.getElementById('segs').value);
+    var msgs = c * s * sg;
+
+    document.getElementById('contacts-out').textContent = c.toLocaleString();
+    document.getElementById('sends-out').textContent = s;
+    document.getElementById('segs-out').textContent = sg === 1 ? '1 segment (under 160 chars)' : sg === 2 ? '2 segments (160–320 chars)' : '3 segments (320+ chars)';
+
+    var texta = 20 + msgs * 0.01;
+    var st = 79 + msgs * 0.045;
+    var ez = 55 + msgs * 0.05;
+    var sl = 59 + msgs * 0.04;
+
+    document.getElementById('r-texta').textContent = fmt(texta);
+    document.getElementById('r-st').textContent = fmt(st);
+    document.getElementById('r-ez').textContent = fmt(ez);
+    document.getElementById('r-sl').textContent = fmt(sl);
+    document.getElementById('s-st').textContent = 'you save ' + fmt(st - texta) + '/mo';
+    document.getElementById('s-ez').textContent = 'you save ' + fmt(ez - texta) + '/mo';
+    document.getElementById('s-sl').textContent = 'you save ' + fmt(sl - texta) + '/mo';
+  }
+
+  document.getElementById('contacts').addEventListener('input', calc);
+  document.getElementById('sends').addEventListener('input', calc);
+  document.getElementById('segs').addEventListener('input', calc);
+  calc();
+
+  details.forEach(function(el) {
+    el.addEventListener('toggle', function() {
+      var plus = el.querySelector('summary span');
+      plus.textContent = el.open ? '−' : '+';
+    });
+  });
+</script>
+
+</body>
+</html>
