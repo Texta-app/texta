@@ -1084,9 +1084,9 @@
     var texta, st, ez, sl;
     if (isMMS) {
       texta = 20 + msgs * 0.025;
-      st    = 79 + msgs * 0.045;   // MMS roughly same rate on competitors
-      ez    = 55 + msgs * 0.05;
-      sl    = 59 + msgs * 0.04;
+      st    = 79 + msgs * 0.08;    // SimpleTexting MMS ~$0.08/msg
+      ez    = 55 + msgs * 0.09;    // EZTexting MMS ~$0.09/msg
+      sl    = 59 + msgs * 0.075;   // SlickText MMS ~$0.075/msg
       document.getElementById('calc-mode-label').textContent = 'MMS · $0.025/msg';
     } else {
       texta = 20 + msgs * sg * 0.01;
