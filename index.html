@@ -538,6 +538,69 @@
   .calc-card.you .calc-card-save { color: var(--white); }
   .calc-card:not(.you) .calc-card-save { color: var(--red); }
 
+  /* MMS TOGGLE */
+  .mms-toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 0.5px solid var(--gray-200);
+  }
+
+  .toggle-switch {
+    position: relative;
+    width: 40px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+
+  .toggle-switch input { opacity: 0; width: 0; height: 0; }
+
+  .toggle-track {
+    position: absolute;
+    inset: 0;
+    background: var(--gray-200);
+    border-radius: 22px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .toggle-track::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 3px;
+    top: 3px;
+    background: var(--white);
+    border-radius: 50%;
+    transition: transform 0.2s;
+  }
+
+  .toggle-switch input:checked + .toggle-track { background: var(--black); }
+  .toggle-switch input:checked + .toggle-track::after { transform: translateX(18px); }
+
+  .mms-toggle-label {
+    font-family: var(--font-sora);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    cursor: pointer;
+  }
+
+  .mms-toggle-label span {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--gray-600);
+    letter-spacing: 0;
+    text-transform: none;
+    margin-left: 4px;
+  }
+
   /* FINAL CTA */
   .final-cta {
     background: var(--black);
@@ -796,8 +859,9 @@
         <div class="seg-tag">Watch for these</div>
         <p class="seg-desc">Curly quotes, em dashes, or certain emojis trigger a different encoding that shrinks segments to 70 characters.</p>
         <div class="seg-example">
-          The app warns you in the compose window the moment this happens and shows you the simple fix before you send.
-          <span class="seg-meta">We catch it. You won't be surprised.</span>
+          "Flash sale today only! 20% off — don't miss it 🎉"
+          <span class="seg-meta" style="color:var(--amber-text);font-weight:500">⚠ Unicode detected &nbsp;·&nbsp; 70 char/segment &nbsp;·&nbsp; 2 segments &nbsp;·&nbsp; $0.02</span>
+          <span class="seg-meta">Remove the emoji or dash to drop back to 1 segment.</span>
         </div>
       </div>
     </div>
@@ -877,11 +941,19 @@
       <input type="range" id="segs" min="1" max="3" step="1" value="1">
     </div>
 
+    <div class="mms-toggle-row">
+      <label class="toggle-switch">
+        <input type="checkbox" id="mms-toggle">
+        <div class="toggle-track"></div>
+      </label>
+      <label class="mms-toggle-label" for="mms-toggle">Sending images (MMS) <span>— switch to see MMS pricing at $0.025/message</span></label>
+    </div>
+
     <div class="calc-results">
       <div class="calc-card you">
         <div class="calc-card-name">Texta</div>
         <span class="calc-card-price" id="r-texta">$40</span>
-        <div class="calc-card-save">per month</div>
+        <div class="calc-card-save" id="calc-mode-label">per month</div>
       </div>
       <div class="calc-card">
         <div class="calc-card-name">SimpleTexting</div>
@@ -997,16 +1069,32 @@
     var c = parseInt(document.getElementById('contacts').value);
     var s = parseInt(document.getElementById('sends').value);
     var sg = parseInt(document.getElementById('segs').value);
-    var msgs = c * s * sg;
+    var isMMS = document.getElementById('mms-toggle').checked;
+    var msgs = c * s;
 
     document.getElementById('contacts-out').textContent = c.toLocaleString();
     document.getElementById('sends-out').textContent = s;
     document.getElementById('segs-out').textContent = sg === 1 ? '1 segment (under 160 chars)' : sg === 2 ? '2 segments (160–320 chars)' : '3 segments (320+ chars)';
 
-    var texta = 20 + msgs * 0.01;
-    var st = 79 + msgs * 0.045;
-    var ez = 55 + msgs * 0.05;
-    var sl = 59 + msgs * 0.04;
+    // Hide segment slider when MMS is on
+    var segsRow = document.getElementById('segs').closest('.calc-row');
+    segsRow.style.opacity = isMMS ? '0.3' : '1';
+    segsRow.style.pointerEvents = isMMS ? 'none' : '';
+
+    var texta, st, ez, sl;
+    if (isMMS) {
+      texta = 20 + msgs * 0.025;
+      st    = 79 + msgs * 0.045;   // MMS roughly same rate on competitors
+      ez    = 55 + msgs * 0.05;
+      sl    = 59 + msgs * 0.04;
+      document.getElementById('calc-mode-label').textContent = 'MMS · $0.025/msg';
+    } else {
+      texta = 20 + msgs * sg * 0.01;
+      st    = 79 + msgs * sg * 0.045;
+      ez    = 55 + msgs * sg * 0.05;
+      sl    = 59 + msgs * sg * 0.04;
+      document.getElementById('calc-mode-label').textContent = 'per month';
+    }
 
     document.getElementById('r-texta').textContent = fmt(texta);
     document.getElementById('r-st').textContent = fmt(st);
@@ -1020,6 +1108,7 @@
   document.getElementById('contacts').addEventListener('input', calc);
   document.getElementById('sends').addEventListener('input', calc);
   document.getElementById('segs').addEventListener('input', calc);
+  document.getElementById('mms-toggle').addEventListener('change', calc);
   calc();
 
   document.querySelectorAll('details').forEach(function(el) {
