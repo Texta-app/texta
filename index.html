@@ -125,7 +125,7 @@
     padding: 96px 40px 80px;
     text-align: center;
     border-bottom: 0.5px solid var(--gray-100);
-    max-width: 800px;
+    max-width: 860px;
     margin: 0 auto;
   }
 
@@ -516,12 +516,12 @@
     margin-bottom: 8px;
   }
 
-  .calc-card.you .calc-card-name { color: #888; }
+  .calc-card.you .calc-card-name { color: var(--white); }
   .calc-card:not(.you) .calc-card-name { color: var(--gray-400); }
 
   .calc-card-price {
     font-family: var(--font-marker);
-    font-size: 24px;
+    font-size: 36px;
     display: block;
     line-height: 1;
     margin-bottom: 6px;
@@ -535,7 +535,7 @@
     font-size: 11px;
   }
 
-  .calc-card.you .calc-card-save { color: #666; }
+  .calc-card.you .calc-card-save { color: var(--white); }
   .calc-card:not(.you) .calc-card-save { color: var(--red); }
 
   /* FINAL CTA */
@@ -607,7 +607,8 @@
   /* RESPONSIVE */
   @media (max-width: 640px) {
     nav { padding: 0 20px; }
-    .nav-links a { display: none; }
+    .nav-links a:not(.btn) { display: none; }
+    .nav-links { gap: 0; }
     .hero { padding: 60px 24px 56px; }
     .hero-headline { font-size: 52px; }
     .hero-sub { font-size: 16px; }
@@ -641,7 +642,7 @@
 
 <section class="hero">
   <div class="eyebrow">Bulk SMS for small business</div>
-  <h1 class="hero-headline">A penny<br>a text.</h1>
+  <h1 class="hero-headline">A penny a text.</h1>
   <p class="hero-sub">$20/month and one cent per text. No contracts, no bloat, no surprises. Just clean, reliable SMS that any small business can afford.</p>
   <div class="hero-cta">
     <a href="#" class="btn btn-primary btn-lg">Start free — get $5 in credits</a>
@@ -661,8 +662,8 @@
       <span class="price-lbl">per text segment</span>
     </div>
     <div class="price-item">
-      <span class="price-big">$0</span>
-      <span class="price-lbl">for inbound replies</span>
+      <span class="price-big">500</span>
+      <span class="price-lbl">inbound replies free/mo</span>
     </div>
   </div>
 </div>
@@ -708,6 +709,74 @@
 </section>
 
 <section class="section">
+  <div class="section-tag">Features</div>
+  <h2 class="section-title">Everything you need. Nothing you don't.</h2>
+  <p class="section-body">Texta is built around the things small businesses actually use every day. No buried settings, no onboarding videos, no features you will never touch.</p>
+  <div class="pillars" style="grid-template-columns: repeat(3,1fr); margin-top:32px">
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="5" r="3" stroke="#111" stroke-width="1.2"/>
+          <path d="M2 13c0-2.8 2.7-5 6-5s6 2.2 6 5" stroke="#111" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="pillar-title">Merge tags</div>
+      <p class="pillar-body">Personalize every message with the recipient's first name, company, or any field in your contact list. Each text feels like a one-on-one message, not a blast.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M6 8a3 3 0 005.2 2L13 8.5" stroke="#111" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M10 8a3 3 0 00-5.2-2L3 7.5" stroke="#111" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="pillar-title">Automatic link shortening</div>
+      <p class="pillar-body">Any URL you include is automatically shortened to a go.texta.me link before sending. Saves characters, saves money, and tracks how many people clicked.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="2" y="4" width="12" height="9" rx="2" stroke="#111" stroke-width="1.2"/>
+          <path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1" stroke="#111" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M5 9h6M5 11.5h3" stroke="#111" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="pillar-title">Sign-up forms</div>
+      <p class="pillar-body">Create a simple opt-in form to grow your list directly. Share the link on social, your website, or in store. New contacts land straight in your Texta account.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 11l3-3 2 2 3-4 2 2" stroke="#111" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="1" y="2" width="14" height="12" rx="2" stroke="#111" stroke-width="1.2"/>
+        </svg>
+      </div>
+      <div class="pillar-title">Send history and click tracking</div>
+      <p class="pillar-body">Every campaign is logged with delivered count, failed count, and total link clicks. See exactly how each send performed and re-send to the same group in one click.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M2 8h3l2-5 2 10 2-5h3" stroke="#111" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="pillar-title">Scheduled sends</div>
+      <p class="pillar-body">Write your message now, send it Friday at 10am. Texta enforces business hours and handles timezone detection so you never accidentally text someone at 2am.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M13 3L6 10M13 3H9M13 3v4" stroke="#111" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1V9" stroke="#111" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="pillar-title">Opt-out management</div>
+      <p class="pillar-body">STOP replies are caught automatically and the contact is excluded from all future sends. You stay compliant without lifting a finger. Manual opt-out is available too.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
   <div class="section-tag">Pricing clarity</div>
   <h2 class="section-title">What exactly is a penny a text?</h2>
   <p class="section-body">Most messages cost exactly one cent. A standard SMS holds up to 160 plain-text characters — that's one segment, one cent. We show you the segment count as you type so there are never any surprises.</p>
@@ -718,15 +787,15 @@
         <div class="seg-tag">1 segment = 1 cent</div>
         <p class="seg-desc">Plain text under 160 characters. Most messages land here. This is the normal case.</p>
         <div class="seg-example">
-          "Hey Sarah, our spring sale starts Friday — 20% off everything. Hope to see you there!"
-          <span class="seg-meta">89 characters &nbsp;·&nbsp; 1 segment &nbsp;·&nbsp; $0.01</span>
+          "Hey Sarah, our spring sale starts Friday. 20% off everything. Hope to see you there!"
+          <span class="seg-meta">86 characters &nbsp;·&nbsp; 1 segment &nbsp;·&nbsp; $0.01</span>
         </div>
       </div>
       <div class="seg-col amber">
         <div class="seg-tag">Watch for these</div>
         <p class="seg-desc">Curly quotes, em dashes, or certain emojis trigger a different encoding that shrinks segments to 70 characters.</p>
         <div class="seg-example">
-          The app warns you in the compose window the moment this happens — and shows you the simple fix before you send.
+          The app warns you in the compose window the moment this happens and shows you the simple fix before you send.
           <span class="seg-meta">We catch it. You won't be surprised.</span>
         </div>
       </div>
@@ -800,7 +869,7 @@
     </div>
     <div class="calc-row">
       <div class="calc-label">Texts per contact per month <span id="sends-out">2</span></div>
-      <input type="range" id="sends" min="1" max="12" step="1" value="2">
+      <input type="range" id="sends" min="1" max="30" step="1" value="2">
     </div>
     <div class="calc-row" style="margin-bottom:0">
       <div class="calc-label">Average message length <span id="segs-out">1 segment (under 160 chars)</span></div>
@@ -856,10 +925,26 @@
 
     <details style="border-top:0.5px solid var(--gray-200);padding:20px 0;cursor:pointer">
       <summary style="font-family:var(--font-sora);font-size:15px;font-weight:600;color:var(--black);list-style:none;display:flex;justify-content:space-between;align-items:center">
-        Do I pay to receive messages?
+        Do I pay to receive replies?
         <span style="font-size:20px;color:var(--gray-400);font-weight:300;flex-shrink:0;margin-left:16px">+</span>
       </summary>
-      <p style="font-family:var(--font-inter);font-size:14px;color:var(--gray-600);line-height:1.7;margin-top:14px;max-width:560px">No. You only pay when you send. Inbound replies are free.</p>
+      <p style="font-family:var(--font-inter);font-size:14px;color:var(--gray-600);line-height:1.7;margin-top:14px;max-width:560px">The first 500 inbound messages per month are on us. After that, replies cost the same as an outgoing text — one cent per segment. Most accounts never come close to 500 inbound messages in a month. If you run a campaign that asks people to text back, we show your current month inbound count in the dashboard so you always know where you stand.</p>
+    </details>
+
+    <details style="border-top:0.5px solid var(--gray-200);padding:20px 0;cursor:pointer">
+      <summary style="font-family:var(--font-sora);font-size:15px;font-weight:600;color:var(--black);list-style:none;display:flex;justify-content:space-between;align-items:center">
+        How do replies work?
+        <span style="font-size:20px;color:var(--gray-400);font-weight:300;flex-shrink:0;margin-left:16px">+</span>
+      </summary>
+      <p style="font-family:var(--font-inter);font-size:14px;color:var(--gray-600);line-height:1.7;margin-top:14px;max-width:560px">Every inbound reply shows up in your Replies tab, matched to the contact name if we recognize the number. You get an email notification when someone responds so you never miss it. If a contact replies STOP (or UNSUBSCRIBE, QUIT, END, or CANCEL), they are automatically removed from future sends. You do not need to manage opt-outs manually.</p>
+    </details>
+
+    <details style="border-top:0.5px solid var(--gray-200);padding:20px 0;cursor:pointer">
+      <summary style="font-family:var(--font-sora);font-size:15px;font-weight:600;color:var(--black);list-style:none;display:flex;justify-content:space-between;align-items:center">
+        What is the link shortener and do I need it?
+        <span style="font-size:20px;color:var(--gray-400);font-weight:300;flex-shrink:0;margin-left:16px">+</span>
+      </summary>
+      <p style="font-family:var(--font-inter);font-size:14px;color:var(--gray-600);line-height:1.7;margin-top:14px;max-width:560px">If you include a URL in your message, Texta automatically shortens it to a go.texta.me link before sending. You do not have to do anything — it just happens. This saves you characters (and therefore segments), which saves you money. It also lets you see exactly how many people clicked your link, right in your send history. Long URLs can eat up a significant chunk of your 160-character segment, so shortening them is an easy win on both cost and performance tracking.</p>
     </details>
 
     <details style="border-top:0.5px solid var(--gray-200);padding:20px 0;cursor:pointer">
@@ -936,7 +1021,7 @@
   document.getElementById('segs').addEventListener('input', calc);
   calc();
 
-  details.forEach(function(el) {
+  document.querySelectorAll('details').forEach(function(el) {
     el.addEventListener('toggle', function() {
       var plus = el.querySelector('summary span');
       plus.textContent = el.open ? '−' : '+';
