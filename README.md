@@ -1,2 +1,2 @@
 # texta
-Text SaaS solution.
+Text SaaS solution. 
