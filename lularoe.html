@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Texta for LuLaRoe Retailers — A penny a text</title>
+<meta name="description" content="Texta is bulk SMS built for LuLaRoe retailers. Import your BLESS customers in one click and start texting for a penny a message. No contracts, no bloat.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Sora:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #111111;
+    --white: #ffffff;
+    --gray-50: #f9f9f9;
+    --gray-100: #f0f0f0;
+    --gray-200: #e8e8e8;
+    --gray-400: #aaaaaa;
+    --gray-600: #666666;
+    --green-bg: #eaf3de;
+    --green-border: #c0dd97;
+    --green-text: #27500a;
+    --amber-bg: #faeeda;
+    --amber-border: #fac775;
+    --amber-text: #633806;
+    --red: #e24b4a;
+    --font-marker: 'Permanent Marker', cursive;
+    --font-sora: 'Sora', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-inter);
+    background: var(--white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--gray-200);
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav-logo {
+    font-family: var(--font-marker);
+    font-size: 26px;
+    color: var(--black);
+  }
+
+  .nav-for {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    color: var(--gray-400);
+    border-left: 0.5px solid var(--gray-200);
+    padding-left: 20px;
+  }
+
+  .nav-for strong {
+    color: var(--gray-600);
+    font-weight: 500;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .nav-links a {
+    font-family: var(--font-inter);
+    font-size: 13px;
+    color: var(--gray-600);
+    transition: color 0.15s;
+  }
+
+  .nav-links a:hover { color: var(--black); }
+
+  .btn {
+    font-family: var(--font-sora);
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 9px 20px;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s, transform 0.1s;
+    display: inline-block;
+  }
+
+  .btn:active { transform: scale(0.98); }
+
+  .btn-primary {
+    background: var(--black);
+    color: var(--white) !important;
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--black);
+    border: 0.5px solid var(--gray-400);
+  }
+
+  .btn-outline:hover { border-color: var(--black); }
+
+  .btn-lg { font-size: 15px; padding: 14px 32px; border-radius: 10px; }
+  .btn-xl { font-size: 16px; padding: 16px 40px; border-radius: 10px; }
+
+  /* HERO */
+  .hero {
+    padding: 96px 40px 80px;
+    text-align: center;
+    border-bottom: 0.5px solid var(--gray-100);
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-family: var(--font-inter);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 20px;
+  }
+
+  .hero-headline {
+    font-family: var(--font-marker);
+    font-size: 80px;
+    line-height: 1.05;
+    color: var(--black);
+    margin-bottom: 24px;
+  }
+
+  .hero-sub {
+    font-family: var(--font-inter);
+    font-size: 18px;
+    color: var(--gray-600);
+    line-height: 1.7;
+    max-width: 540px;
+    margin: 0 auto 36px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .hero-note {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  /* BLESS IMPORT HERO BLOCK */
+  .bless-showcase {
+    background: var(--gray-50);
+    border: 0.5px solid var(--gray-200);
+    border-radius: 16px;
+    padding: 40px;
+    margin: 48px auto 0;
+    max-width: 640px;
+    text-align: left;
+  }
+
+  .bless-showcase-label {
+    font-family: var(--font-sora);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 20px;
+  }
+
+  .bless-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .bless-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .bless-step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-sora);
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .bless-step-text {
+    font-family: var(--font-inter);
+    font-size: 14px;
+    color: var(--black);
+    line-height: 1.5;
+  }
+
+  .bless-step-text span {
+    color: var(--gray-600);
+    font-size: 12px;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .bless-result {
+    background: var(--green-bg);
+    border: 0.5px solid var(--green-border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .bless-result-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .bless-result-text {
+    font-family: var(--font-inter);
+    font-size: 13px;
+    color: var(--green-text);
+    line-height: 1.5;
+  }
+
+  .bless-result-text strong {
+    font-weight: 500;
+  }
+
+  /* PRICE STRIP */
+  .price-strip {
+    background: var(--gray-50);
+    border-bottom: 0.5px solid var(--gray-100);
+    padding: 36px 40px;
+  }
+
+  .price-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .price-item { text-align: center; padding: 0 24px; }
+
+  .price-item + .price-item { border-left: 0.5px solid var(--gray-200); }
+
+  .price-big {
+    font-family: var(--font-marker);
+    font-size: 44px;
+    color: var(--black);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .price-lbl {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 72px 40px;
+    border-bottom: 0.5px solid var(--gray-100);
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    font-family: var(--font-sora);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-family: var(--font-marker);
+    font-size: 38px;
+    color: var(--black);
+    margin-bottom: 14px;
+    line-height: 1.15;
+  }
+
+  .section-body {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    color: var(--gray-600);
+    line-height: 1.75;
+    max-width: 560px;
+  }
+
+  /* PILLARS */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .pillar {
+    border: 0.5px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+
+  .pillar:hover { border-color: var(--gray-400); }
+
+  .pillar-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--gray-50);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  .pillar-title {
+    font-family: var(--font-sora);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+
+  .pillar-body {
+    font-family: var(--font-inter);
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.65;
+  }
+
+  /* USE CASES */
+  .use-cases {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .use-case {
+    border: 0.5px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 28px;
+  }
+
+  .use-case-label {
+    font-family: var(--font-sora);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 12px;
+  }
+
+  .use-case-headline {
+    font-family: var(--font-sora);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 10px;
+  }
+
+  .use-case-msg {
+    background: var(--gray-50);
+    border: 0.5px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-family: var(--font-inter);
+    font-size: 13px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .use-case-msg::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    bottom: -7px;
+    width: 12px;
+    height: 12px;
+    background: var(--gray-50);
+    border-right: 0.5px solid var(--gray-200);
+    border-bottom: 0.5px solid var(--gray-200);
+    transform: rotate(45deg);
+  }
+
+  .use-case-meta {
+    font-family: var(--font-inter);
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 16px;
+  }
+
+  /* COMPARISON */
+  .comp-wrap {
+    margin-top: 36px;
+    border: 0.5px solid var(--gray-200);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    table-layout: fixed;
+  }
+
+  .comp-table th {
+    font-family: var(--font-sora);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    padding: 14px 20px;
+    text-align: left;
+    background: var(--gray-50);
+    border-bottom: 0.5px solid var(--gray-200);
+  }
+
+  .comp-table td {
+    padding: 14px 20px;
+    font-family: var(--font-inter);
+    color: #444;
+    border-bottom: 0.5px solid var(--gray-100);
+    vertical-align: middle;
+  }
+
+  .comp-table tr:last-child td { border-bottom: none; }
+
+  .comp-table tr.you td {
+    background: var(--black);
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .badge-you {
+    display: inline-block;
+    background: var(--white);
+    color: var(--black);
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 10px;
+    font-family: var(--font-sora);
+    font-weight: 600;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .more { font-family: var(--font-inter); font-size: 11px; color: var(--red); margin-left: 6px; }
+
+  /* FAQ */
+  .faq-item {
+    border-top: 0.5px solid var(--gray-200);
+    padding: 20px 0;
+    cursor: pointer;
+  }
+
+  .faq-item:last-child { border-bottom: 0.5px solid var(--gray-200); }
+
+  .faq-summary {
+    font-family: var(--font-sora);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-plus {
+    font-size: 20px;
+    color: var(--gray-400);
+    font-weight: 300;
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+
+  .faq-body {
+    font-family: var(--font-inter);
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.7;
+    margin-top: 14px;
+    max-width: 560px;
+  }
+
+  /* TESTIMONIAL */
+  .testimonial-strip {
+    background: var(--gray-50);
+    border-top: 0.5px solid var(--gray-100);
+    border-bottom: 0.5px solid var(--gray-100);
+    padding: 48px 40px;
+  }
+
+  .testimonial-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .testimonial-quote {
+    font-family: var(--font-marker);
+    font-size: 28px;
+    color: var(--black);
+    line-height: 1.3;
+    margin-bottom: 20px;
+  }
+
+  .testimonial-attr {
+    font-family: var(--font-inter);
+    font-size: 13px;
+    color: var(--gray-400);
+  }
+
+  /* FINAL CTA */
+  .final-cta {
+    background: var(--black);
+    padding: 96px 40px;
+    text-align: center;
+  }
+
+  .final-cta .eyebrow { color: rgba(255,255,255,0.5); }
+  .final-cta .hero-headline { color: var(--white); font-size: 64px; margin-bottom: 20px; }
+  .final-cta .hero-sub { color: rgba(255,255,255,0.7); }
+  .final-cta .hero-note { color: rgba(255,255,255,0.4); margin-top: 16px; }
+
+  .btn-white {
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--font-sora);
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 40px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    margin-top: 36px;
+    display: inline-block;
+  }
+
+  .btn-white:hover { opacity: 0.9; }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 40px;
+    border-top: 0.5px solid var(--gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    font-family: var(--font-marker);
+    font-size: 20px;
+    color: var(--black);
+  }
+
+  .footer-note {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero > * { animation: fadeUp 0.6s ease both; }
+  .hero .eyebrow { animation-delay: 0.05s; }
+  .hero .hero-headline { animation-delay: 0.15s; }
+  .hero .hero-sub { animation-delay: 0.25s; }
+  .hero .hero-cta { animation-delay: 0.35s; }
+  .hero .hero-note { animation-delay: 0.42s; }
+  .hero .bless-showcase { animation-delay: 0.5s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav { padding: 0 20px; }
+    .nav-links a:not(.btn) { display: none; }
+    .nav-links { gap: 0; }
+    .nav-for { display: none; }
+    .hero { padding: 60px 24px 48px; }
+    .hero-headline { font-size: 52px; }
+    .hero-sub { font-size: 16px; }
+    .hero-cta { flex-direction: column; }
+    .bless-showcase { padding: 24px; }
+    .price-strip { padding: 28px 24px; }
+    .section { padding: 52px 24px; }
+    .section-title { font-size: 30px; }
+    .pillars { grid-template-columns: 1fr; }
+    .use-cases { grid-template-columns: 1fr; }
+    .comp-table th:nth-child(3),
+    .comp-table td:nth-child(3) { display: none; }
+    .final-cta { padding: 64px 24px; }
+    .final-cta .hero-headline { font-size: 44px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+    .footer-left { flex-direction: column; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <a href="https://texta.me" class="nav-logo">Texta</a>
+    <div class="nav-for">for <strong>LuLaRoe Retailers</strong></div>
+  </div>
+  <div class="nav-links">
+    <a href="#how-it-works">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://app.texta.me" class="btn btn-primary">Start free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow">Built for LuLaRoe Retailers</div>
+  <h1 class="hero-headline">Your BLESS customers.<br>Ready to text.</h1>
+  <p class="hero-sub">Import your entire customer list from BLESS in one step. Then text them for a penny each. No contracts, no bloat, no complicated setup.</p>
+  <div class="hero-cta">
+    <a href="https://app.texta.me" class="btn btn-primary btn-lg">Start free — get $5 in credits</a>
+    <a href="#how-it-works" class="btn btn-outline btn-lg">See how it works</a>
+  </div>
+  <div class="hero-note">No credit card required &nbsp;·&nbsp; Credits never expire &nbsp;·&nbsp; Cancel anytime</div>
+
+  <div class="bless-showcase">
+    <div class="bless-showcase-label">Import from BLESS — 3 steps, 60 seconds</div>
+    <div class="bless-steps">
+      <div class="bless-step">
+        <div class="bless-step-num">1</div>
+        <div class="bless-step-text">
+          Log into your BLESS account at shop.lularoebless.com
+          <span>Go to Sales &rarr; Complete Orders</span>
+        </div>
+      </div>
+      <div class="bless-step">
+        <div class="bless-step-num">2</div>
+        <div class="bless-step-text">
+          Click Export to CSV
+          <span>Downloads your full customer list instantly</span>
+        </div>
+      </div>
+      <div class="bless-step">
+        <div class="bless-step-num">3</div>
+        <div class="bless-step-text">
+          Drop the file into Texta
+          <span>We recognize the BLESS format automatically — no column mapping required</span>
+        </div>
+      </div>
+    </div>
+    <div class="bless-result">
+      <div class="bless-result-icon">✓</div>
+      <div class="bless-result-text"><strong>Your customers are in.</strong> Names, phone numbers, birthdays — all imported and ready to text. Takes about 60 seconds total.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE STRIP -->
+<div class="price-strip" id="pricing">
+  <div class="price-row">
+    <div class="price-item">
+      <span class="price-big">$20</span>
+      <span class="price-lbl">per month, flat</span>
+    </div>
+    <div class="price-item">
+      <span class="price-big">1¢</span>
+      <span class="price-lbl">per text segment</span>
+    </div>
+    <div class="price-item">
+      <span class="price-big">$5</span>
+      <span class="price-lbl">free credits to start</span>
+    </div>
+  </div>
+</div>
+
+<div style="max-width:860px;margin:0 auto">
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how-it-works">
+  <div class="section-tag">How it works</div>
+  <h2 class="section-title">Text your customer list like a pro.</h2>
+  <p class="section-body">You built that customer list one sale at a time. Texta helps you put it to work. Import from BLESS, write your message, and send to everyone in seconds.</p>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-icon">📥</div>
+      <div class="pillar-title">Import from BLESS</div>
+      <p class="pillar-body">Export your customers from BLESS as a CSV and drop it into Texta. We handle the column mapping automatically — first name, last name, phone, and birthday all come in clean.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">✏️</div>
+      <div class="pillar-title">Write once, personalize to all</div>
+      <p class="pillar-body">Use merge tags like [first_name] and every recipient gets a message that feels personal. "Hey Sarah, new leggings just dropped!" — not a blast, a conversation.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">📱</div>
+      <div class="pillar-title">Send and track</div>
+      <p class="pillar-body">Hit send and watch the delivery counts come in. Every campaign is logged. If you include a link, Texta shortens it automatically and tracks how many people clicked.</p>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="section">
+  <div class="section-tag">What retailers send</div>
+  <h2 class="section-title">Texts that actually get read.</h2>
+  <p class="section-body">SMS has a 98% open rate. Your Facebook posts get seen by maybe 3% of your followers. Here is what retailers use Texta for every week.</p>
+
+  <div class="use-cases">
+    <div class="use-case">
+      <div class="use-case-label">New inventory drop</div>
+      <div class="use-case-headline">Tell your best customers first</div>
+      <div class="use-case-msg">
+        Hey [first_name]! New leggings and Cassies just landed — including some solid colors I know you love. Shop before they're gone: go.texta.me/x7k2p
+      </div>
+      <div class="use-case-meta">1 segment &nbsp;·&nbsp; $0.01 per person</div>
+    </div>
+    <div class="use-case">
+      <div class="use-case-label">Flash sale</div>
+      <div class="use-case-headline">Drive traffic in the next few hours</div>
+      <div class="use-case-msg">
+        Flash sale today only! 20% off everything in my shop. Link in bio or text me back and I'll send you the link directly. Ends at 8pm!
+      </div>
+      <div class="use-case-meta">1 segment &nbsp;·&nbsp; $0.01 per person</div>
+    </div>
+    <div class="use-case">
+      <div class="use-case-label">Pop-up invite</div>
+      <div class="use-case-headline">Fill your next event</div>
+      <div class="use-case-msg">
+        Hi [first_name]! Hosting a pop-up at my place Saturday 2–5pm. Come try things on, bring a friend. RSVP by texting me back YES so I know to expect you!
+      </div>
+      <div class="use-case-meta">1 segment &nbsp;·&nbsp; $0.01 per person</div>
+    </div>
+    <div class="use-case">
+      <div class="use-case-label">Birthday message</div>
+      <div class="use-case-headline">The text they actually remember</div>
+      <div class="use-case-msg">
+        Happy birthday [first_name]! To celebrate, I'm giving you 15% off your next order this month. You deserve it. Just show me this text!
+      </div>
+      <div class="use-case-meta">1 segment &nbsp;·&nbsp; $0.01 per person &nbsp;·&nbsp; Birthday field imports from BLESS</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT COSTS -->
+<section class="section">
+  <div class="section-tag">What it costs</div>
+  <h2 class="section-title">Cheaper than every alternative.</h2>
+  <p class="section-body">Based on a typical retailer with 500 customers texted twice a month. Run your own numbers below.</p>
+
+  <div class="comp-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Monthly base</th>
+          <th>Per message</th>
+          <th>Your total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="you">
+          <td>Texta <span class="badge-you">you</span></td>
+          <td>$20</td>
+          <td>$0.01</td>
+          <td>$30/mo</td>
+        </tr>
+        <tr>
+          <td>SimpleTexting</td>
+          <td>$79</td>
+          <td>$0.045</td>
+          <td>$124/mo <span class="more">4× more</span></td>
+        </tr>
+        <tr>
+          <td>EZTexting</td>
+          <td>$55</td>
+          <td>$0.05</td>
+          <td>$105/mo <span class="more">3.5× more</span></td>
+        </tr>
+        <tr>
+          <td>SlickText</td>
+          <td>$59</td>
+          <td>$0.04</td>
+          <td>$99/mo <span class="more">3.3× more</span></td>
+        </tr>
+        <tr>
+          <td>Texting from your phone</td>
+          <td>$0</td>
+          <td>hours of your time</td>
+          <td>Not scalable</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SIMPLE TO UNDERSTAND -->
+<section class="section">
+  <div class="section-tag">Pricing clarity</div>
+  <h2 class="section-title">A penny a text. That's it.</h2>
+  <p class="section-body">One standard text message is one segment — 160 characters — and costs one cent. We show you the count and cost as you type, so there are no surprises when you hit send.</p>
+
+  <div class="pillars" style="margin-top:32px">
+    <div class="pillar">
+      <div class="pillar-icon">💳</div>
+      <div class="pillar-title">Prepaid credits</div>
+      <p class="pillar-body">Load your balance in $25, $50, $100, or $250 increments. Spend only what you use. No monthly surprise invoices based on how many texts you sent.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">🕰</div>
+      <div class="pillar-title">Credits never expire</div>
+      <p class="pillar-body">Load up before a big drop and use them over time. Your credits stay in your account as long as you do — no use-it-or-lose-it pressure.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">🔄</div>
+      <div class="pillar-title">Auto-recharge</div>
+      <p class="pillar-body">Set a low-balance threshold and Texta tops you up automatically. Set it once and never worry about running out mid-campaign.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="section-tag">FAQ</div>
+  <h2 class="section-title">Questions retailers ask.</h2>
+
+  <div style="margin-top:32px">
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        Does the BLESS import really work automatically?
+        <span class="faq-plus">+</span>
+      </summary>
+      <p class="faq-body">Yes. Every BLESS customer export has the same column format, so Texta recognizes it automatically. You do not have to tell us which column is the phone number or match anything up. Drop the file in, we handle the rest. First name, last name, phone number, and birthday all come in clean.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        What if I have duplicate customers in BLESS?
+        <span class="faq-plus">+</span>
+      </summary>
+      <p class="faq-body">Texta checks for duplicate phone numbers during import and skips any duplicates automatically. You will see a summary after every import showing how many contacts were added and how many were skipped as duplicates.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        Is it legal to text my LuLaRoe customers?
+        <span class="faq-plus">+</span>
+      </summary>
+      <p class="faq-body">If your customers gave you their phone number and you have an existing business relationship with them, you are generally on solid ground for informational and promotional messages. That said, you are responsible for ensuring you have appropriate consent. Texta automatically includes opt-out language ("Reply STOP to unsubscribe") on every message by default, which is required by law. When someone replies STOP, they are removed from your list automatically and permanently. We strongly recommend consulting with a legal professional if you have any questions about compliance.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        Can I update my contacts when I get new customers in BLESS?
+        <span class="faq-plus">+</span>
+      </summary>
+      <p class="faq-body">Yes. You can re-import a fresh BLESS export at any time. Texta adds new contacts and skips anyone already in your list, so there is no risk of duplication. Your opted-out customers are never re-activated by an import — that protection is permanent.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        What does 10DLC mean and do I have to deal with it?
+        <span class="faq-plus">+</span>
+      </summary>
+      <p class="faq-body">10DLC is a registration system the major carriers use to identify legitimate businesses sending text messages. Without it, your messages may be filtered as spam. Texta walks you through the registration process as part of setup — it is a one-time thing, takes about 10 minutes of your time, and typically gets approved within 1 to 2 weeks. After that you are set for good.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        Can I cancel anytime?
+        <span class="faq-plus">+</span>
+      </summary>
+      <p class="faq-body">Yes. No contracts, no cancellation fees. Your unused message credits never expire — if you cancel and come back later, your credits are still waiting for you.</p>
+    </details>
+
+  </div>
+</section>
+
+</div>
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <div class="eyebrow">No contracts. No bloat. No surprises.</div>
+  <h2 class="hero-headline">Your customers.<br>One cent away.</h2>
+  <p class="hero-sub">Import your BLESS contacts and get $5 in free credits when you sign up. No card required.</p>
+  <a href="https://app.texta.me" class="btn-white">Create your free account</a>
+  <div class="hero-note">Credits never expire &nbsp;·&nbsp; Cancel anytime &nbsp;·&nbsp; BLESS import included</div>
+</div>
+
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo">Texta</div>
+    <div class="footer-note">Built for LuLaRoe Retailers</div>
+  </div>
+  <div class="footer-note">© 2026 Texta &nbsp;·&nbsp; <a href="https://texta.me/privacy" style="color:inherit">Privacy</a> &nbsp;·&nbsp; <a href="https://texta.me/terms" style="color:inherit">Terms</a> &nbsp;·&nbsp; <a href="https://texta.me" style="color:inherit">texta.me</a></div>
+</footer>
+
+<script>
+  document.querySelectorAll('details').forEach(function(el) {
+    el.addEventListener('toggle', function() {
+      var plus = el.querySelector('.faq-plus');
+      if (plus) plus.textContent = el.open ? '−' : '+';
+    });
+  });
+</script>
+
+</body>
+</html>
