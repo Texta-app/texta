@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Texta API — Developer Documentation</title>
+<meta name="description" content="Texta API documentation. Add contacts to your Texta account from any app using our simple REST API.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Sora:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #111111;
+    --white: #ffffff;
+    --gray-50: #f9f9f9;
+    --gray-100: #f0f0f0;
+    --gray-200: #e8e8e8;
+    --gray-400: #aaaaaa;
+    --gray-600: #666666;
+    --green-bg: #eaf3de;
+    --green-border: #c0dd97;
+    --green-text: #27500a;
+    --amber-bg: #faeeda;
+    --amber-border: #fac775;
+    --amber-text: #633806;
+    --red: #e24b4a;
+    --font-marker: 'Permanent Marker', cursive;
+    --font-sora: 'Sora', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-inter);
+    background: var(--white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--gray-200);
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--font-marker);
+    font-size: 26px;
+    color: var(--black);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .nav-links a {
+    font-family: var(--font-inter);
+    font-size: 13px;
+    color: var(--gray-600);
+    transition: color 0.15s;
+  }
+
+  .nav-links a:hover { color: var(--black); }
+
+  .btn {
+    font-family: var(--font-sora);
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 9px 20px;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s, transform 0.1s;
+    display: inline-block;
+  }
+
+  .btn:active { transform: scale(0.98); }
+
+  .btn-primary { background: var(--black); color: var(--white) !important; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--black);
+    border: 0.5px solid var(--gray-200);
+  }
+
+  /* ── PAGE LAYOUT ── */
+  .page-wrapper {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 72px 40px 120px;
+  }
+
+  /* ── SIDEBAR NAV (doc pages) ── */
+  .doc-layout {
+    display: flex;
+    gap: 64px;
+    align-items: flex-start;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 72px 40px 120px;
+  }
+
+  .doc-sidebar {
+    width: 200px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 84px;
+  }
+
+  .doc-sidebar-label {
+    font-family: var(--font-sora);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 12px;
+  }
+
+  .doc-sidebar a {
+    display: block;
+    font-size: 13px;
+    color: var(--gray-600);
+    padding: 6px 0;
+    border-left: 2px solid transparent;
+    padding-left: 12px;
+    margin-left: -14px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .doc-sidebar a:hover { color: var(--black); }
+  .doc-sidebar a.active { color: var(--black); border-left-color: var(--black); font-weight: 500; }
+
+  .doc-sidebar-divider {
+    height: 0.5px;
+    background: var(--gray-200);
+    margin: 20px 0;
+  }
+
+  /* ── CONTENT ── */
+  .doc-content { flex: 1; min-width: 0; }
+
+  .doc-eyebrow {
+    font-family: var(--font-sora);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 12px;
+  }
+
+  .doc-title {
+    font-family: var(--font-sora);
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .doc-lead {
+    font-size: 16px;
+    color: var(--gray-600);
+    line-height: 1.7;
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 0.5px solid var(--gray-200);
+  }
+
+  .doc-section {
+    margin-bottom: 52px;
+  }
+
+  .doc-section h2 {
+    font-family: var(--font-sora);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    scroll-margin-top: 84px;
+  }
+
+  .doc-section h3 {
+    font-family: var(--font-sora);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  .doc-section p {
+    color: var(--gray-600);
+    margin-bottom: 16px;
+    line-height: 1.7;
+  }
+
+  .doc-section ul {
+    list-style: none;
+    margin-bottom: 16px;
+  }
+
+  .doc-section ul li {
+    color: var(--gray-600);
+    padding: 4px 0;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.7;
+  }
+
+  .doc-section ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 4px;
+    height: 4px;
+    background: var(--gray-400);
+    border-radius: 50%;
+  }
+
+  /* ── CODE BLOCKS ── */
+  .endpoint-block {
+    background: var(--gray-50);
+    border: 0.5px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+
+  .endpoint-method {
+    display: inline-block;
+    font-family: var(--font-sora);
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--black);
+    color: var(--white);
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-right: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .endpoint-url {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: var(--black);
+  }
+
+  pre {
+    background: var(--black);
+    color: #e8e8e8;
+    border-radius: 10px;
+    padding: 20px 24px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-x: auto;
+    margin-bottom: 24px;
+  }
+
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    padding: 2px 6px;
+    color: var(--black);
+  }
+
+  /* ── PARAMETER TABLE ── */
+  .param-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+
+  .param-table th {
+    font-family: var(--font-sora);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    text-align: left;
+    padding: 10px 16px;
+    border-bottom: 0.5px solid var(--gray-200);
+  }
+
+  .param-table td {
+    padding: 12px 16px;
+    border-bottom: 0.5px solid var(--gray-100);
+    color: var(--gray-600);
+    vertical-align: top;
+  }
+
+  .param-table td:first-child {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--black);
+    white-space: nowrap;
+  }
+
+  .param-table tr:last-child td { border-bottom: none; }
+
+  .badge {
+    display: inline-block;
+    font-family: var(--font-sora);
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 2px 7px;
+    letter-spacing: 0.04em;
+  }
+
+  .badge-required {
+    background: #fde8e8;
+    color: var(--red);
+  }
+
+  .badge-optional {
+    background: var(--gray-100);
+    color: var(--gray-600);
+  }
+
+  /* ── RESPONSE CARDS ── */
+  .response-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .response-card {
+    border: 0.5px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .response-card .rc-code {
+    font-family: var(--font-sora);
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .response-card .rc-label {
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-bottom: 8px;
+  }
+
+  .response-card .rc-desc {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+
+  .rc-200 .rc-code { color: var(--green-text); }
+  .rc-400 .rc-code { color: var(--amber-text); }
+  .rc-401 .rc-code, .rc-403 .rc-code { color: var(--red); }
+
+  /* ── CALLOUT ── */
+  .callout {
+    border: 0.5px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  .callout-body { flex: 1; }
+
+  .callout-body strong {
+    display: block;
+    font-family: var(--font-sora);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--black);
+  }
+
+  .callout-body p {
+    font-size: 13px;
+    color: var(--gray-600);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .callout-body a { text-decoration: underline; color: var(--black); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 0.5px solid var(--gray-200);
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo { font-family: var(--font-marker); font-size: 20px; }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--gray-400);
+    transition: color 0.15s;
+  }
+
+  .footer-links a:hover { color: var(--black); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .doc-layout { flex-direction: column; padding: 40px 20px 80px; gap: 40px; }
+    .doc-sidebar { position: static; width: 100%; }
+    .doc-title { font-size: 24px; }
+    .response-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 16px; padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://texta.me" class="nav-logo">Texta</a>
+  <div class="nav-links">
+    <a href="https://texta.me/#pricing">Pricing</a>
+    <a href="https://texta.me/api" style="color:#111;">API</a>
+    <a href="https://app.texta.me/sign-in" class="btn btn-ghost" style="padding:7px 16px;">Sign in</a>
+    <a href="https://app.texta.me/sign-up" class="btn btn-primary">Get started</a>
+  </div>
+</nav>
+
+<!-- BODY -->
+<div class="doc-layout">
+
+  <!-- Sidebar -->
+  <aside class="doc-sidebar">
+    <div class="doc-sidebar-label">On this page</div>
+    <a href="#overview" class="active">Overview</a>
+    <a href="#authentication">Authentication</a>
+    <a href="#add-contact">Add Contact</a>
+    <a href="#request">Request</a>
+    <a href="#responses">Responses</a>
+    <a href="#example">Example</a>
+    <div class="doc-sidebar-divider"></div>
+    <a href="https://texta.me">Marketing site</a>
+    <a href="https://app.texta.me">Sign in</a>
+    <a href="mailto:ops@texta.me">Support</a>
+  </aside>
+
+  <!-- Content -->
+  <main class="doc-content">
+
+    <div class="doc-eyebrow">Developer Documentation</div>
+    <h1 class="doc-title">Texta API</h1>
+    <p class="doc-lead">
+      The Texta API lets you add contacts to your account from any app or automation.
+      It is a simple REST API with a single endpoint. No SDKs, no OAuth flows — just
+      an API key and a POST request.
+    </p>
+
+    <!-- Overview -->
+    <div class="doc-section" id="overview">
+      <h2>Overview</h2>
+      <p>
+        The Texta API is designed to be used with automation tools like Zapier. When a
+        new customer fills out a form, makes a purchase, or books an appointment in another
+        app, you can automatically add them to your Texta contact list so they're ready
+        for your next campaign.
+      </p>
+      <div class="callout">
+        <div class="callout-icon">⚡</div>
+        <div class="callout-body">
+          <strong>Using Zapier?</strong>
+          <p>Texta is available in the Zapier app directory. Connect your account in seconds
+          without writing any code. <a href="https://zapier.com/apps/texta">Find Texta on Zapier.</a></p>
+        </div>
+      </div>
+      <p>
+        All API requests go to the base URL below. The API accepts and returns JSON.
+      </p>
+      <div class="endpoint-block">
+        <span style="font-family:'Courier New',monospace;font-size:14px;color:#666;">Base URL</span><br><br>
+        <span class="endpoint-url">https://texta-api.textaops.workers.dev</span>
+      </div>
+    </div>
+
+    <!-- Authentication -->
+    <div class="doc-section" id="authentication">
+      <h2>Authentication</h2>
+      <p>
+        All API requests are authenticated with an API key. You can generate your key in
+        the Texta app under Settings, then Integrations.
+      </p>
+      <p>
+        Your API key is prefixed with <code>txta_</code>. Keep it secret. Anyone with your
+        key can add contacts to your account. If you suspect it has been compromised,
+        regenerate it immediately from Settings. Regenerating creates a new key and
+        invalidates the old one.
+      </p>
+      <p>
+        Pass your API key in the request body as the <code>api_key</code> field.
+      </p>
+      <div class="callout">
+        <div class="callout-icon">🔒</div>
+        <div class="callout-body">
+          <strong>Keep your API key private</strong>
+          <p>Never share your API key publicly or commit it to version control.
+          Store it in environment variables or a secrets manager.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Contact -->
+    <div class="doc-section" id="add-contact">
+      <h2>Add Contact</h2>
+      <p>
+        Adds a contact to your Texta account. If the phone number already exists and the
+        contact is active, the request succeeds with no changes. If the contact previously
+        opted out and you re-add them, they are reactivated.
+      </p>
+
+      <div class="endpoint-block">
+        <span class="endpoint-method">POST</span>
+        <span class="endpoint-url">/contacts/add</span>
+      </div>
+
+      <!-- Request -->
+      <h3 id="request">Request body</h3>
+      <table class="param-table">
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>api_key</td>
+            <td>string</td>
+            <td><span class="badge badge-required">required</span></td>
+            <td>Your Texta API key, starting with <code>txta_</code>.</td>
+          </tr>
+          <tr>
+            <td>phone</td>
+            <td>string</td>
+            <td><span class="badge badge-required">required</span></td>
+            <td>The contact's phone number. Accepts most formats — E.164, domestic US, with or without dashes. Normalized automatically.</td>
+          </tr>
+          <tr>
+            <td>first_name</td>
+            <td>string</td>
+            <td><span class="badge badge-optional">optional</span></td>
+            <td>Contact's first name. Used for merge tags in messages.</td>
+          </tr>
+          <tr>
+            <td>last_name</td>
+            <td>string</td>
+            <td><span class="badge badge-optional">optional</span></td>
+            <td>Contact's last name.</td>
+          </tr>
+          <tr>
+            <td>email</td>
+            <td>string</td>
+            <td><span class="badge badge-optional">optional</span></td>
+            <td>Contact's email address.</td>
+          </tr>
+          <tr>
+            <td>tags</td>
+            <td>string</td>
+            <td><span class="badge badge-optional">optional</span></td>
+            <td>Comma-separated tags. Example: <code>vip,newsletter,2024</code></td>
+          </tr>
+          <tr>
+            <td>birthday</td>
+            <td>string</td>
+            <td><span class="badge badge-optional">optional</span></td>
+            <td>Contact's birthday. Accepts flexible formats such as <code>1990-05-15</code>, <code>05/15/1990</code>, or <code>May 15 1990</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Responses -->
+      <h3 id="responses">Responses</h3>
+      <div class="response-grid">
+        <div class="response-card rc-200">
+          <div class="rc-code">200</div>
+          <div class="rc-label">Success</div>
+          <div class="rc-desc">Contact was created, already exists, or was reactivated.</div>
+        </div>
+        <div class="response-card rc-400">
+          <div class="rc-code">400</div>
+          <div class="rc-label">Bad request</div>
+          <div class="rc-desc">Phone number is missing or could not be parsed.</div>
+        </div>
+        <div class="response-card rc-401">
+          <div class="rc-code">401</div>
+          <div class="rc-label">Unauthorized</div>
+          <div class="rc-desc">API key is missing or invalid.</div>
+        </div>
+      </div>
+      <div class="response-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="response-card rc-403">
+          <div class="rc-code">403</div>
+          <div class="rc-label">Forbidden</div>
+          <div class="rc-desc">Account does not have an active subscription.</div>
+        </div>
+      </div>
+
+      <p>A successful response returns a JSON object with a <code>result</code> field indicating what happened:</p>
+
+      <table class="param-table">
+        <thead>
+          <tr><th>result value</th><th>Meaning</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>created</td>
+            <td>New contact was added to your account.</td>
+          </tr>
+          <tr>
+            <td>exists</td>
+            <td>Phone number already exists and the contact is active. No changes made.</td>
+          </tr>
+          <tr>
+            <td>reactivated</td>
+            <td>Contact had previously opted out and has been reactivated.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Example -->
+      <h3 id="example">Example</h3>
+      <p>Request:</p>
+<pre>{
+  "api_key": "txta_your_api_key_here",
+  "phone": "312-555-0001",
+  "first_name": "Jamie",
+  "last_name": "Rivera",
+  "email": "jamie@example.com",
+  "tags": "vip,spring-promo"
+}</pre>
+
+      <p>Response:</p>
+<pre>{
+  "result": "created",
+  "contact_id": "8a3f2c91-4d5e-4b1a-9c7d-2e6f8a0b1c3d"
+}</pre>
+    </div>
+
+    <!-- Support -->
+    <div class="doc-section">
+      <h2>Support</h2>
+      <p>
+        Questions about the API? Email <a href="mailto:ops@texta.me" style="text-decoration:underline;">ops@texta.me</a>
+        and we'll get back to you. If you find a bug, same address.
+      </p>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">Texta</span>
+  <div class="footer-links">
+    <a href="https://texta.me">Home</a>
+    <a href="https://texta.me/api">API</a>
+    <a href="https://texta.me/privacy">Privacy</a>
+    <a href="https://texta.me/terms">Terms</a>
+  </div>
+</footer>
+
+<!-- Sidebar active state on scroll -->
+<script>
+  const sections = document.querySelectorAll('.doc-section[id]')
+  const links = document.querySelectorAll('.doc-sidebar a[href^="#"]')
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'))
+        const active = document.querySelector(`.doc-sidebar a[href="#${entry.target.id}"]`)
+        if (active) active.classList.add('active')
+      }
+    })
+  }, { rootMargin: '-20% 0px -70% 0px' })
+
+  sections.forEach(s => observer.observe(s))
+</script>
+
+</body>
+</html>

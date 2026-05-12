@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Texta — Privacy Policy</title>
+<meta name="description" content="Texta Privacy Policy. How we collect, use, and protect your information.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Sora:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #111111; --white: #ffffff; --gray-50: #f9f9f9; --gray-100: #f0f0f0;
+    --gray-200: #e8e8e8; --gray-400: #aaaaaa; --gray-600: #666666;
+    --red: #e24b4a; --green-bg: #eaf3de; --green-text: #27500a;
+    --font-marker: 'Permanent Marker', cursive;
+    --font-sora: 'Sora', sans-serif; --font-inter: 'Inter', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-inter); background: var(--white); color: var(--black); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--gray-200);
+    padding: 0 40px; height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: var(--font-marker); font-size: 26px; color: var(--black); }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a { font-size: 13px; color: var(--gray-600); transition: color 0.15s; }
+  .nav-links a:hover { color: var(--black); }
+  .btn { font-family: var(--font-sora); font-size: 13px; font-weight: 600; border-radius: 8px; padding: 9px 20px; cursor: pointer; border: none; transition: opacity 0.15s, transform 0.1s; display: inline-block; }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: var(--black); color: var(--white) !important; }
+  .btn-ghost { background: transparent; color: var(--black); border: 0.5px solid var(--gray-200); }
+
+  .doc-layout {
+    display: flex; gap: 64px; align-items: flex-start;
+    max-width: 1040px; margin: 0 auto; padding: 72px 40px 120px;
+  }
+  .doc-sidebar { width: 200px; flex-shrink: 0; position: sticky; top: 84px; }
+  .doc-sidebar-label { font-family: var(--font-sora); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 12px; }
+  .doc-sidebar a { display: block; font-size: 13px; color: var(--gray-600); padding: 6px 0 6px 12px; margin-left: -14px; border-left: 2px solid transparent; transition: color 0.15s, border-color 0.15s; }
+  .doc-sidebar a:hover { color: var(--black); }
+  .doc-sidebar a.active { color: var(--black); border-left-color: var(--black); font-weight: 500; }
+  .doc-sidebar-divider { height: 0.5px; background: var(--gray-200); margin: 20px 0; }
+
+  .doc-content { flex: 1; min-width: 0; }
+  .doc-eyebrow { font-family: var(--font-sora); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 12px; }
+  .doc-title { font-family: var(--font-sora); font-size: 32px; font-weight: 600; color: var(--black); line-height: 1.2; margin-bottom: 12px; letter-spacing: -0.02em; }
+  .doc-meta { font-size: 13px; color: var(--gray-400); margin-bottom: 16px; }
+  .doc-lead { font-size: 15px; color: var(--gray-600); line-height: 1.7; margin-bottom: 48px; padding-bottom: 48px; border-bottom: 0.5px solid var(--gray-200); }
+
+  .doc-section { margin-bottom: 48px; }
+  .doc-section h2 { font-family: var(--font-sora); font-size: 17px; font-weight: 600; color: var(--black); margin-bottom: 14px; letter-spacing: -0.01em; scroll-margin-top: 84px; }
+  .doc-section h3 { font-family: var(--font-sora); font-size: 14px; font-weight: 600; color: var(--black); margin-bottom: 10px; margin-top: 24px; }
+  .doc-section p { color: var(--gray-600); margin-bottom: 14px; line-height: 1.75; }
+  .doc-section ul { list-style: none; margin-bottom: 14px; }
+  .doc-section ul li { color: var(--gray-600); padding: 4px 0 4px 16px; position: relative; line-height: 1.7; }
+  .doc-section ul li::before { content: ''; position: absolute; left: 0; top: 13px; width: 4px; height: 4px; background: var(--gray-400); border-radius: 50%; }
+
+  .callout-green {
+    background: var(--green-bg); border: 0.5px solid #c0dd97;
+    border-radius: 10px; padding: 20px 24px; margin-bottom: 20px;
+  }
+  .callout-green strong { font-family: var(--font-sora); font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px; color: var(--green-text); }
+  .callout-green p { color: var(--green-text); margin: 0; font-size: 14px; line-height: 1.6; }
+
+  .legal-caps { font-size: 13px; color: var(--gray-600); line-height: 1.7; margin-bottom: 14px; }
+
+  footer { border-top: 0.5px solid var(--gray-200); padding: 32px 40px; display: flex; align-items: center; justify-content: space-between; }
+  .footer-logo { font-family: var(--font-marker); font-size: 20px; }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 13px; color: var(--gray-400); transition: color 0.15s; }
+  .footer-links a:hover { color: var(--black); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; } .nav-links { display: none; }
+    .doc-layout { flex-direction: column; padding: 40px 20px 80px; gap: 40px; }
+    .doc-sidebar { position: static; width: 100%; }
+    .doc-title { font-size: 24px; }
+    footer { flex-direction: column; gap: 16px; padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://texta.me" class="nav-logo">Texta</a>
+  <div class="nav-links">
+    <a href="https://texta.me/#pricing">Pricing</a>
+    <a href="https://texta.me/api">API</a>
+    <a href="https://app.texta.me/sign-in" class="btn btn-ghost" style="padding:7px 16px;">Sign in</a>
+    <a href="https://app.texta.me/sign-up" class="btn btn-primary">Get started</a>
+  </div>
+</nav>
+
+<div class="doc-layout">
+  <aside class="doc-sidebar">
+    <div class="doc-sidebar-label">On this page</div>
+    <a href="#overview" class="active">Overview</a>
+    <a href="#what-we-collect">What We Collect</a>
+    <a href="#how-we-use">How We Use It</a>
+    <a href="#contact-data">Your Contact Data</a>
+    <a href="#sharing">Sharing</a>
+    <a href="#retention">Retention</a>
+    <a href="#security">Security</a>
+    <a href="#your-rights">Your Rights</a>
+    <a href="#cookies">Cookies</a>
+    <a href="#children">Children</a>
+    <a href="#changes">Changes</a>
+    <a href="#contact">Contact</a>
+    <div class="doc-sidebar-divider"></div>
+    <a href="https://texta.me/terms">Terms of Service</a>
+    <a href="mailto:ops@texta.me">Contact</a>
+  </aside>
+
+  <main class="doc-content">
+    <div class="doc-eyebrow">Legal</div>
+    <h1 class="doc-title">Privacy Policy</h1>
+    <p class="doc-meta">Effective date: May 2026 &nbsp;&middot;&nbsp; Last updated: May 2026</p>
+    <p class="doc-lead">This Privacy Policy explains how Texta, operated by Richter10.2 Media Group, collects, uses, and protects information in connection with the Texta SMS platform. We keep this simple and honest because that is how we run the entire product.</p>
+
+    <div class="doc-section" id="overview">
+      <h2>1. Overview</h2>
+      <div class="callout-green">
+        <strong>The short version</strong>
+        <p>We collect only what we need to run the service. We do not sell your data. We do not share it with advertisers. Your contact lists belong to you.</p>
+      </div>
+      <p>Texta is a tool, not a data business. We collect information about you (the account holder) to operate your account and bill you correctly. We store the contact data you upload so we can send messages on your behalf. That is the extent of it.</p>
+    </div>
+
+    <div class="doc-section" id="what-we-collect">
+      <h2>2. What We Collect</h2>
+      <h3>Account information</h3>
+      <p>When you create a Texta account, we collect:</p>
+      <ul>
+        <li>Your name and email address (via Clerk authentication)</li>
+        <li>Your business name</li>
+        <li>Payment information — processed and stored by Stripe, not by Texta directly</li>
+        <li>10DLC registration information you submit (business name, EIN, website, use case)</li>
+        <li>Your account brand color and logo if you upload one</li>
+      </ul>
+      <h3>Usage information</h3>
+      <p>We automatically collect information about how you use the Service, including:</p>
+      <ul>
+        <li>Messages sent, delivery status, and segment counts</li>
+        <li>Credit balance and transaction history</li>
+        <li>Inbound replies and opt-out events</li>
+        <li>URL click tracking for links shortened using go.texta.me</li>
+        <li>Login events and session activity via Clerk</li>
+      </ul>
+      <h3>Contact data you upload</h3>
+      <p>We store the contact information you import or add to your account, including names, phone numbers, email addresses, tags, and other fields you provide. See Section 4 for how we handle this data.</p>
+    </div>
+
+    <div class="doc-section" id="how-we-use">
+      <h2>3. How We Use Your Information</h2>
+      <p>We use the information we collect to:</p>
+      <ul>
+        <li>Operate your account and provide the Service</li>
+        <li>Send SMS and MMS messages on your behalf via Telnyx</li>
+        <li>Process payments and manage your credit balance via Stripe</li>
+        <li>Provision and manage your dedicated phone number via Telnyx</li>
+        <li>Submit your 10DLC brand and campaign registration on your behalf</li>
+        <li>Send transactional emails such as billing receipts and reply notifications via Resend</li>
+        <li>Detect and enforce opt-out requests from your contacts</li>
+        <li>Troubleshoot issues and improve the reliability of the Service</li>
+        <li>Comply with legal obligations</li>
+      </ul>
+      <p>We do not use your data to train AI models. We do not use your contact lists for any purpose other than sending messages you initiate. We do not show you ads and we do not sell your data to anyone.</p>
+    </div>
+
+    <div class="doc-section" id="contact-data">
+      <h2>4. Your Contact Data</h2>
+      <p>The contacts you add to Texta belong to you. We store them in your account so you can send campaigns, manage opt-outs, and track replies. We do not access your contact lists for any purpose other than executing the messages you send.</p>
+      <p>You are solely responsible for ensuring that you have lawfully obtained your contact list and that every person on it has consented to receive messages from you. Texta does not verify consent on your behalf. See the Terms of Service for your full obligations under applicable law.</p>
+      <p>When you delete your account, we delete your contact data. When a contact opts out via STOP reply, we mark them as opted out in your account and stop sending them messages. We retain the opt-out record to prevent accidental re-messaging.</p>
+    </div>
+
+    <div class="doc-section" id="sharing">
+      <h2>5. How We Share Information</h2>
+      <p>We do not sell your information. We share it only in the following limited circumstances:</p>
+      <h3>Service providers</h3>
+      <p>We share data with third-party providers who help us operate the Service:</p>
+      <ul>
+        <li><strong>Telnyx</strong> — receives phone numbers and message content to transmit your SMS and MMS messages and to provision your dedicated number</li>
+        <li><strong>Stripe</strong> — receives payment information to process subscriptions and credit purchases</li>
+        <li><strong>Clerk</strong> — manages authentication and user accounts</li>
+        <li><strong>Supabase</strong> — hosts your account data and contact database</li>
+        <li><strong>Cloudflare</strong> — hosts the application, worker functions, and MMS image storage</li>
+        <li><strong>Resend</strong> — delivers transactional email notifications</li>
+      </ul>
+      <p>Each of these providers processes your data only as necessary to deliver their service and is subject to their own privacy policies.</p>
+      <h3>Legal requirements</h3>
+      <p>We may disclose information if required to do so by law, court order, or a valid government request, or if we believe in good faith that disclosure is necessary to protect the rights, property, or safety of Texta, our users, or the public.</p>
+      <h3>Business transfers</h3>
+      <p>If Texta is acquired or merged with another company, your information may be transferred as part of that transaction. We will notify you by email if this occurs.</p>
+    </div>
+
+    <div class="doc-section" id="retention">
+      <h2>6. Data Retention</h2>
+      <p>We retain your account information and contact data for as long as your account is active. If you cancel your account and request deletion, we will delete your data within 30 days, except where retention is required by law or for legitimate business purposes such as resolving disputes or enforcing our Terms.</p>
+      <p>Message send history and credit transaction records may be retained for up to 3 years for financial and compliance purposes.</p>
+      <p>MMS images uploaded for campaigns are automatically deleted after 7 days. After that point we cannot retrieve them.</p>
+    </div>
+
+    <div class="doc-section" id="security">
+      <h2>7. Security</h2>
+      <p>We take reasonable measures to protect your information, including:</p>
+      <ul>
+        <li>All data transmitted between your browser and our servers uses HTTPS encryption</li>
+        <li>Your database is secured with row-level security policies — your data is scoped to your account only</li>
+        <li>API keys and service credentials are stored as encrypted secrets, not in code</li>
+        <li>Payment data is handled entirely by Stripe and never touches our servers in raw form</li>
+      </ul>
+      <p>No system is completely secure. We cannot guarantee the absolute security of your data, and we encourage you to use a strong password and keep your account credentials confidential.</p>
+    </div>
+
+    <div class="doc-section" id="your-rights">
+      <h2>8. Your Rights</h2>
+      <p>You have the right to access, correct, or delete your personal information. To do any of the following, contact us at ops@texta.me:</p>
+      <ul>
+        <li>Request a copy of the personal information we hold about you</li>
+        <li>Correct inaccurate information in your account</li>
+        <li>Request deletion of your account and associated data</li>
+        <li>Ask questions about how your data is used</li>
+      </ul>
+      <p>If you are a California resident, you may have additional rights under the California Consumer Privacy Act (CCPA), including the right to know what personal information we collect and to request that we delete it. Contact us at ops@texta.me to exercise these rights.</p>
+      <p>We do not discriminate against users who exercise their privacy rights.</p>
+    </div>
+
+    <div class="doc-section" id="cookies">
+      <h2>9. Cookies and Tracking</h2>
+      <p>The Texta app uses cookies and local storage to manage your login session via Clerk. These are necessary for the app to function and cannot be disabled while using the Service.</p>
+      <p>The Texta marketing site (texta.me) does not use advertising cookies or third-party tracking. We do not use Google Analytics or any similar analytics service.</p>
+      <p>Links shortened via go.texta.me track click counts so you can see how many recipients clicked a link in a campaign. Click data is aggregated at the campaign level and associated with your account. We do not track individual recipients across campaigns.</p>
+    </div>
+
+    <div class="doc-section" id="children">
+      <h2>10. Children</h2>
+      <p>Texta is not directed at children under the age of 13, and we do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, contact us at ops@texta.me and we will delete it.</p>
+    </div>
+
+    <div class="doc-section" id="changes">
+      <h2>11. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we make material changes, we will update the "Last updated" date at the top of this document and may notify you by email. Your continued use of the Service after changes are posted constitutes your acceptance of the updated Policy.</p>
+    </div>
+
+    <div class="doc-section" id="contact">
+      <h2>12. Contact</h2>
+      <p>If you have questions about this Privacy Policy or how we handle your data, contact us at <a href="mailto:ops@texta.me" style="text-decoration:underline;">ops@texta.me</a>. We will respond within a reasonable time.</p>
+      <p>Texta is operated by Richter10.2 Media Group, State of Florida.</p>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <span class="footer-logo">Texta</span>
+  <div class="footer-links">
+    <a href="https://texta.me">Home</a>
+    <a href="https://texta.me/api">API</a>
+    <a href="https://texta.me/privacy">Privacy</a>
+    <a href="https://texta.me/terms">Terms</a>
+  </div>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('.doc-section[id]')
+  const links = document.querySelectorAll('.doc-sidebar a[href^="#"]')
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'))
+        const active = document.querySelector(`.doc-sidebar a[href="#${entry.target.id}"]`)
+        if (active) active.classList.add('active')
+      }
+    })
+  }, { rootMargin: '-20% 0px -70% 0px' })
+  sections.forEach(s => observer.observe(s))
+</script>
+</body>
+</html>
