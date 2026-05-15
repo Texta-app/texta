@@ -100,7 +100,7 @@ nav {
   transition: top 0.3s ease, padding 0.3s ease, background 0.3s ease, border-radius 0.3s ease, box-shadow 0.3s ease, max-width 0.3s ease, border-bottom 0.3s ease;
 }
 
-/* ── WIDESCREEN: floating pill nav ── */
+/* ── WIDESCREEN: floating card nav ── */
 @media (min-width: 1200px) {
   nav {
     position: fixed;
@@ -110,7 +110,7 @@ nav {
     width: calc(100% - 64px);
     max-width: 1100px;
     height: 56px;
-    border-radius: 100px;
+    border-radius: var(--r-xl);
     padding: 0 8px 0 24px;
     background: rgba(255,255,255,0.82);
     backdrop-filter: blur(28px) saturate(200%);
@@ -120,24 +120,12 @@ nav {
     box-shadow: 0 4px 32px rgba(29,158,117,0.08), 0 1px 0 rgba(255,255,255,0.9) inset, 0 2px 12px rgba(0,0,0,0.06);
   }
 
-  /* Push hero content down so floating nav doesn't overlap */
-  body { padding-top: 80px; }
-
   nav .logo { font-size: 26px; }
 
   nav .nav-center {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-  }
-
-  .btn-signin {
-    border-radius: 100px;
-  }
-
-  .btn-signup {
-    border-radius: 100px;
-    padding: 8px 20px;
   }
 
   /* Scrolled state — slightly more opaque */
@@ -225,7 +213,6 @@ nav {
 /* ─── HERO BACKGROUND ─── */
 .hero-bg {
   position: relative;
-  overflow: hidden;
   padding-bottom: 20px;
   background:
     radial-gradient(ellipse 70% 80% at 15% 30%, rgba(139,211,188,0.28) 0%, transparent 55%),
@@ -236,7 +223,26 @@ nav {
     linear-gradient(155deg, #edf8f3 0%, #f0faf5 35%, #e8f7f1 65%, #f2fbf6 100%);
 }
 
-/* Soft noise overlay to match app feel */
+/* On widescreen, pad the top so orb background fills behind the floating nav */
+@media (min-width: 1200px) {
+  .hero-bg { padding-top: 80px; }
+  .hero { padding-top: 48px; }
+}
+
+/* Seamless bottom fade — melts hero-bg into the page background */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent 0%, #f9fbf9 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Soft highlight overlay */
 .hero-bg::before {
   content: '';
   position: absolute;
@@ -1659,10 +1665,6 @@ footer {
 .reveal-delay-1 { transition-delay: 0.1s; }
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
-
-@media (max-width: 1199px) {
-  body { padding-top: 0; }
-}
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1024px) {
