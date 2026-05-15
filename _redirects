@@ -1,1 +1,1 @@
-/join/:slug  /join.html  200
+/join/:slug  /join.html?slug=:slug  200
