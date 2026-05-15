@@ -261,12 +261,15 @@
 
     // Extract slug from URL: texta.me/join/[slug]
     function getSlug() {
-      const parts = location.pathname.split('/')
-      // pathname: /join/my-slug
-      const joinIdx = parts.indexOf('join')
-      if (joinIdx !== -1 && parts[joinIdx + 1]) return parts[joinIdx + 1]
-      return null
-    }
+  // Try query param first (works with Cloudflare redirect)
+  const params = new URLSearchParams(location.search)
+  if (params.get('slug')) return params.get('slug')
+  // Fall back to path
+  const parts = location.pathname.split('/')
+  const joinIdx = parts.indexOf('join')
+  if (joinIdx !== -1 && parts[joinIdx + 1]) return parts[joinIdx + 1]
+  return null
+}
 
     function el(id) { return document.getElementById(id) }
 
