@@ -82,6 +82,8 @@ body::before {
 }
 
 /* ─── NAV ─── */
+
+/* Base nav — shared by all states */
 nav {
   position: sticky;
   top: 0;
@@ -95,6 +97,54 @@ nav {
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-bottom: 0.5px solid rgba(29,158,117,0.1);
+  transition: top 0.3s ease, padding 0.3s ease, background 0.3s ease, border-radius 0.3s ease, box-shadow 0.3s ease, max-width 0.3s ease, border-bottom 0.3s ease;
+}
+
+/* ── WIDESCREEN: floating pill nav ── */
+@media (min-width: 1200px) {
+  nav {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 64px);
+    max-width: 1100px;
+    height: 56px;
+    border-radius: 100px;
+    padding: 0 8px 0 24px;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(28px) saturate(200%);
+    -webkit-backdrop-filter: blur(28px) saturate(200%);
+    border: 0.5px solid rgba(29,158,117,0.15);
+    border-bottom: 0.5px solid rgba(29,158,117,0.15);
+    box-shadow: 0 4px 32px rgba(29,158,117,0.08), 0 1px 0 rgba(255,255,255,0.9) inset, 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  /* Push hero content down so floating nav doesn't overlap */
+  body { padding-top: 80px; }
+
+  nav .logo { font-size: 26px; }
+
+  nav .nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .btn-signin {
+    border-radius: 100px;
+  }
+
+  .btn-signup {
+    border-radius: 100px;
+    padding: 8px 20px;
+  }
+
+  /* Scrolled state — slightly more opaque */
+  nav.scrolled {
+    background: rgba(255,255,255,0.92);
+    box-shadow: 0 6px 40px rgba(29,158,117,0.1), 0 1px 0 rgba(255,255,255,0.95) inset, 0 3px 16px rgba(0,0,0,0.08);
+  }
 }
 
 .logo {
@@ -171,6 +221,34 @@ nav {
 }
 .btn-signup:hover { opacity: 0.82; color: var(--white); }
 .btn-signup:active { transform: scale(0.98); }
+
+/* ─── HERO BACKGROUND ─── */
+.hero-bg {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 20px;
+  background:
+    radial-gradient(ellipse 70% 80% at 15% 30%, rgba(139,211,188,0.28) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 65% at 85% 15%, rgba(93,202,165,0.22) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 70% 85%, rgba(29,158,117,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(159,225,203,0.18) 0%, transparent 45%),
+    radial-gradient(ellipse 35% 35% at 90% 70%, rgba(93,202,165,0.12) 0%, transparent 40%),
+    linear-gradient(155deg, #edf8f3 0%, #f0faf5 35%, #e8f7f1 65%, #f2fbf6 100%);
+}
+
+/* Soft noise overlay to match app feel */
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.6) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.4) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-bg > * { position: relative; z-index: 1; }
 
 /* ─── HERO ─── */
 .hero {
@@ -1582,6 +1660,10 @@ footer {
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
 
+@media (max-width: 1199px) {
+  body { padding-top: 0; }
+}
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1024px) {
   nav { padding: 0 28px; }
@@ -1651,6 +1733,7 @@ footer {
 </nav>
 
 <!-- ─── HERO ─── -->
+<div class="hero-bg">
 <div class="hero">
   <div class="hero-left">
     <div class="hero-badge">
@@ -1789,6 +1872,8 @@ footer {
     </div>
   </div>
 </div>
+
+</div><!-- /hero-bg -->
 
 <div class="divider"></div>
 
@@ -2274,6 +2359,19 @@ footer {
 </footer>
 
 <script>
+/* FLOATING NAV SCROLL STATE */
+(function(){
+  var nav=document.querySelector('nav');
+  function onScroll(){
+    if(window.innerWidth>=1200){
+      nav.classList.toggle('scrolled',window.scrollY>20);
+    }
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll,{passive:true});
+  onScroll();
+})();
+
 /* CALCULATOR */
 function fmt(n){return '$'+Math.round(n).toLocaleString()}
 
