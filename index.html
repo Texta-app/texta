@@ -1893,6 +1893,153 @@ footer {
   .credits-balance { font-size: 40px; }
   .seg-frame { padding: 22px; }
 }
+
+/* ───────── TWEAKS ───────── */
+/* Center hero + section intros at tablet and below */
+@media (max-width: 1100px) {
+  body.center-tablet .hero-left { text-align: center; margin: 0 auto; }
+  body.center-tablet .hero-badge { margin-left: auto; margin-right: auto; }
+  body.center-tablet .hero-cta { justify-content: center; }
+  body.center-tablet .hero-trust { justify-content: center; }
+  body.center-tablet section.s > .reveal:first-child,
+  body.center-tablet .how-left { text-align: center; }
+  body.center-tablet section.s > .reveal:first-child .s-body,
+  body.center-tablet .how-left .s-body { margin-left: auto; margin-right: auto; }
+  body.center-tablet .s-tag { justify-content: center; }
+  body.center-tablet .s-tag::before { display: none; }
+  body.center-tablet .how-steps { text-align: left; }
+  body.center-tablet .faq-list { margin-left: auto; margin-right: auto; text-align: left; }
+}
+
+/* Tweak: pause background orb motion */
+body.no-bg-anim .bg-orb { animation: none !important; }
+
+/* Tweak: disable mockup tilt */
+body.no-tilt .mockup-card { transform: none !important; }
+
+/* Tweak: orb glow intensity */
+.bg-orb { opacity: calc(var(--orb-base, 0.55) * var(--orb-opacity-mult, 1)); }
+.bg-orb.a { --orb-base: 0.55; }
+.bg-orb.b { --orb-base: 0.55; }
+.bg-orb.c { --orb-base: 0.25; }
+.bg-orb.d { --orb-base: 0.18; }
+
+/* ───────── TWEAKS PANEL ───────── */
+.tweaks-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  width: 288px;
+  background: rgba(255,255,255,0.86);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 0.5px solid rgba(255,255,255,0.7);
+  border-radius: 18px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.95) inset,
+    0 24px 60px -20px rgba(15,110,86,0.3),
+    0 10px 28px -10px rgba(0,0,0,0.18);
+  font-family: var(--font-body);
+  overflow: hidden;
+  animation: tpIn 0.3s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes tpIn { from { opacity: 0; transform: translateY(12px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.tweaks-panel[hidden] { display: none; }
+.tp-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 14px 14px 18px;
+  border-bottom: 0.5px solid rgba(29,158,117,0.12);
+  background: linear-gradient(135deg, rgba(225,245,238,0.55), rgba(255,255,255,0.2));
+}
+.tp-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+  display: flex; align-items: center; gap: 6px;
+}
+.tp-title::before {
+  content:''; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--teal); animation: pip-pulse 2.4s ease-in-out infinite;
+  margin-bottom: 3px;
+}
+.tp-close {
+  background: rgba(0,0,0,0.04);
+  border: none;
+  font-size: 18px;
+  color: var(--gray-500);
+  cursor: pointer;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1; padding: 0;
+  transition: all 0.15s;
+}
+.tp-close:hover { background: rgba(0,0,0,0.08); color: var(--ink); }
+.tp-section { padding: 8px 18px 16px; }
+.tp-control {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 0;
+  gap: 12px;
+}
+.tp-control + .tp-control { border-top: 0.5px solid rgba(0,0,0,0.05); }
+.tp-control.vertical { flex-direction: column; align-items: stretch; }
+.tp-control > label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-700);
+  cursor: pointer;
+  user-select: none;
+  display: flex; justify-content: space-between; align-items: center; flex: 1;
+}
+.tp-control.vertical > label { margin-bottom: 10px; }
+.tp-val {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--teal-darker);
+  background: rgba(225,245,238,0.85);
+  border: 0.5px solid rgba(29,158,117,0.2);
+  padding: 2px 8px;
+  border-radius: 5px;
+  letter-spacing: 0;
+}
+.tp-toggle {
+  width: 38px; height: 22px;
+  border-radius: 11px;
+  background: var(--gray-200);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05) inset;
+}
+.tp-toggle::after {
+  content:'';
+  position: absolute;
+  width: 16px; height: 16px;
+  left: 3px; top: 3px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+.tp-toggle.on { background: var(--teal); box-shadow: 0 2px 6px -2px rgba(29,158,117,0.5); }
+.tp-toggle.on::after { transform: translateX(16px); }
+.tp-section input[type=range] { width: 100%; }
+.tp-hint {
+  font-size: 10.5px;
+  color: var(--gray-400);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 0.5px dashed rgba(0,0,0,0.08);
+  font-family: var(--font-mono);
+  line-height: 1.5;
+}
+@media (max-width: 600px) {
+  .tweaks-panel { left: 12px; right: 12px; bottom: 12px; width: auto; }
+}
 </style>
 </head>
 <body>
@@ -2612,6 +2759,33 @@ footer {
   </div>
 </div>
 
+<!-- ─── TWEAKS PANEL ─── -->
+<div id="tweaks-panel" class="tweaks-panel" hidden>
+  <div class="tp-header">
+    <div class="tp-title">Tweaks</div>
+    <button class="tp-close" aria-label="Close tweaks">×</button>
+  </div>
+  <div class="tp-section">
+    <div class="tp-control">
+      <label for="tp-centerTablet">Center on tablet</label>
+      <div class="tp-toggle" id="tp-centerTablet" data-key="centerTablet" role="switch" tabindex="0"></div>
+    </div>
+    <div class="tp-control">
+      <label for="tp-animateBg">Animated background</label>
+      <div class="tp-toggle" id="tp-animateBg" data-key="animateBg" role="switch" tabindex="0"></div>
+    </div>
+    <div class="tp-control">
+      <label for="tp-tiltMockup">Mockup 3D tilt</label>
+      <div class="tp-toggle" id="tp-tiltMockup" data-key="tiltMockup" role="switch" tabindex="0"></div>
+    </div>
+    <div class="tp-control vertical">
+      <label>Glow intensity <span class="tp-val" id="tp-glow-out">100%</span></label>
+      <input type="range" min="0" max="150" value="100" data-key="glow">
+    </div>
+    <div class="tp-hint">Center on tablet realigns hero &amp; section intros under 1100px wide.</div>
+  </div>
+</div>
+
 <!-- ─── FOOTER ─── -->
 <footer>
   <div class="footer-logo">Texta<span class="logo-pip"></span></div>
@@ -2622,7 +2796,7 @@ footer {
     <a href="#faq">FAQ</a>
     <a href="/privacy">Privacy</a>
     <a href="/terms">Terms</a>
-    <a href="/cdn-cgi/l/email-protection#d9aaaca9a9b6abad99adbca1adb8f7b4bc">Support</a>
+    <a href="/cdn-cgi/l/email-protection#10636560607f62645064756864713e7d75">Support</a>
   </div>
   <div class="footer-copy">© 2026 Texta</div>
 </footer>
@@ -2683,6 +2857,66 @@ var io=new IntersectionObserver(function(entries){
   });
 },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+
+/* TWEAKS PANEL */
+(function(){
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "centerTablet": true,
+    "animateBg": true,
+    "tiltMockup": true,
+    "glow": 81
+  }/*EDITMODE-END*/;
+
+  var tweaks = Object.assign({}, TWEAK_DEFAULTS);
+  var panel = document.getElementById('tweaks-panel');
+
+  function apply(){
+    document.body.classList.toggle('center-tablet', !!tweaks.centerTablet);
+    document.body.classList.toggle('no-bg-anim', !tweaks.animateBg);
+    document.body.classList.toggle('no-tilt', !tweaks.tiltMockup);
+    document.body.style.setProperty('--orb-opacity-mult', (tweaks.glow/100).toFixed(2));
+    var out = document.getElementById('tp-glow-out');
+    if (out) out.textContent = tweaks.glow + '%';
+    panel.querySelectorAll('.tp-toggle').forEach(function(t){
+      var on = !!tweaks[t.dataset.key];
+      t.classList.toggle('on', on);
+      t.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+    panel.querySelectorAll('input[type=range]').forEach(function(r){
+      if (r.value != tweaks[r.dataset.key]) r.value = tweaks[r.dataset.key];
+    });
+  }
+
+  function setKey(k, v){
+    tweaks[k] = v;
+    apply();
+    try { var edits = {}; edits[k] = v; window.parent.postMessage({type:'__edit_mode_set_keys', edits: edits}, '*'); } catch(e){}
+  }
+
+  panel.querySelectorAll('.tp-toggle').forEach(function(t){
+    t.addEventListener('click', function(){ setKey(t.dataset.key, !tweaks[t.dataset.key]); });
+    t.addEventListener('keydown', function(e){
+      if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); setKey(t.dataset.key, !tweaks[t.dataset.key]); }
+    });
+  });
+  panel.querySelectorAll('input[type=range]').forEach(function(r){
+    r.addEventListener('input', function(){ setKey(r.dataset.key, parseInt(r.value, 10)); });
+  });
+  panel.querySelector('.tp-close').addEventListener('click', function(){
+    panel.hidden = true;
+    try { window.parent.postMessage({type:'__edit_mode_dismissed'}, '*'); } catch(e){}
+  });
+
+  // Register listener BEFORE announcing availability
+  window.addEventListener('message', function(e){
+    if (!e.data) return;
+    if (e.data.type === '__activate_edit_mode') panel.hidden = false;
+    if (e.data.type === '__deactivate_edit_mode') panel.hidden = true;
+  });
+
+  apply();
+  try { window.parent.postMessage({type:'__edit_mode_available'}, '*'); } catch(e){}
+})();
 
 /* PARALLAX ORBS — subtle */
 (function(){
