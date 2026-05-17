@@ -58,6 +58,12 @@
 
 html { scroll-behavior: smooth; }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 body {
   font-family: var(--font-body);
   background: #f5f8f5;
@@ -1892,6 +1898,12 @@ footer {
   .credits-card { padding: 24px; }
   .credits-balance { font-size: 40px; }
   .seg-frame { padding: 22px; }
+  .mockup-wrap,
+  .hero-right,
+  .hero-shell {
+  max-width: 100%;
+  overflow-x: clip;
+}
 }
 
 /* ───────── TWEAKS ───────── */
