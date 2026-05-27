@@ -6,6 +6,8 @@
 <title>Texta — A penny a text</title>
 <meta name="description" content="Bulk SMS for small business. $20/month and one cent per text. No contracts, no bloat, no surprises.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%231D9E75'/><circle cx='50' cy='50' r='8' fill='white'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -1721,14 +1723,10 @@ details[open] .faq-icon::after  { transform: rotate(90deg); opacity: 0; }
   bottom: -20%; left: 50%;
   transform: translateX(-50%);
   width: 80%; height: 60%;
-  background: radial-gradient(ellipse, rgba(29,158,117,0.45) 0%, transparent 65%);
-  filter: blur(60px);
+  /* Replaced filter:blur + animation with a softer radial-gradient — same visual, zero compositing cost */
+  background: radial-gradient(ellipse, rgba(29,158,117,0.38) 0%, rgba(29,158,117,0.15) 35%, transparent 70%);
   pointer-events: none;
-  /* This blur is acceptable: it's isolated inside an overflow:hidden
-     dark container with no composited children above it */
-  animation: aurora 12s ease-in-out infinite;
 }
-@keyframes aurora { 0%,100%{opacity:0.7;transform:translateX(-50%) translateY(0)} 50%{opacity:1;transform:translateX(-50%) translateY(-30px)} }
 
 .final-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
 .final-badge {
@@ -2537,6 +2535,11 @@ footer {
         <div class="comp-bar-val">$40</div>
       </div>
       <div class="comp-bar-row">
+        <div class="comp-bar-name">Mobile Text Alerts</div>
+        <div class="comp-bar-track"><div class="comp-bar-fill" style="width:29.4%"></div></div>
+        <div class="comp-bar-val">$88</div>
+      </div>
+      <div class="comp-bar-row">
         <div class="comp-bar-name">SlickText</div>
         <div class="comp-bar-track"><div class="comp-bar-fill" style="width:46.5%"></div></div>
         <div class="comp-bar-val">$139</div>
@@ -2557,7 +2560,7 @@ footer {
         <div class="comp-bar-val">$299</div>
       </div>
 
-      <div class="comp-bars-footer">Public pricing as of May 2026. Per-text rates × volume + monthly base.</div>
+      <div class="comp-bars-footer">Public pricing as of May 2026. Per-text rates × volume + monthly base. Mobile Text Alerts: $44 base includes 1,000 msgs.</div>
     </div>
 
     <div class="check-table-wrap reveal reveal-delay-2">
@@ -2656,6 +2659,16 @@ footer {
         <div class="calc-res-right">
           <div class="calc-res-price" id="r-texta">$40</div>
           <div class="calc-res-save">your monthly cost</div>
+        </div>
+      </div>
+      <div class="calc-result-card">
+        <div>
+          <div class="calc-res-name">Mobile Text Alerts</div>
+          <div class="calc-res-sub">$44 base + 4.4¢/msg over 1k included</div>
+        </div>
+        <div class="calc-res-right">
+          <div class="calc-res-price" id="r-mta">$88</div>
+          <div class="calc-res-save" id="s-mta">$48/mo more</div>
         </div>
       </div>
       <div class="calc-result-card">
@@ -2797,6 +2810,17 @@ footer {
 /* CALCULATOR */
 function fmt(n){return '$'+Math.round(n).toLocaleString()}
 
+/* Mobile Text Alerts pricing:
+   $44/mo base includes 1,000 message credits.
+   Additional messages billed at $0.044/msg (overage).
+   For MMS they don't have a published per-msg MMS rate, so we use 3× SMS credits (~$0.132/msg) as an estimate. */
+function calcMTA(msgs, mms) {
+  var BASE=44, INCLUDED=1000, RATE=0.044;
+  if(mms) return BASE + msgs * 0.132;
+  var overage = Math.max(0, msgs - INCLUDED);
+  return BASE + overage * RATE;
+}
+
 function calc(){
   var c=parseInt(document.getElementById('contacts').value);
   var s=parseInt(document.getElementById('sends').value);
@@ -2813,12 +2837,14 @@ function calc(){
   segsRow.style.opacity=mms?'0.35':'1';
   segsRow.style.pointerEvents=mms?'none':'';
 
-  var texta,st,ez,sl;
+  var texta,st,ez,sl,mta;
   if(mms){
     texta=20+msgs*0.025; st=79+msgs*0.08; ez=55+msgs*0.09; sl=59+msgs*0.075;
+    mta=calcMTA(msgs,true);
     document.getElementById('calc-mode-lbl').textContent='$20 base + 2.5¢/MMS';
   } else {
     texta=20+msgs*sg*0.01; st=79+msgs*sg*0.045; ez=55+msgs*sg*0.05; sl=59+msgs*sg*0.04;
+    mta=calcMTA(msgs*sg,false);
     document.getElementById('calc-mode-lbl').textContent='$20 base + 1¢/segment';
   }
 
@@ -2826,9 +2852,11 @@ function calc(){
   document.getElementById('r-st').textContent=fmt(st);
   document.getElementById('r-ez').textContent=fmt(ez);
   document.getElementById('r-sl').textContent=fmt(sl);
+  document.getElementById('r-mta').textContent=fmt(mta);
   document.getElementById('s-st').textContent=fmt(st-texta)+'/mo more';
   document.getElementById('s-ez').textContent=fmt(ez-texta)+'/mo more';
   document.getElementById('s-sl').textContent=fmt(sl-texta)+'/mo more';
+  document.getElementById('s-mta').textContent=fmt(mta-texta)+'/mo more';
 }
 ['contacts','sends','segs'].forEach(function(id){document.getElementById(id).addEventListener('input',calc)});
 document.getElementById('mms-toggle').addEventListener('change',calc);
