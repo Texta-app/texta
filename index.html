@@ -211,18 +211,7 @@ nav.scrolled {
   flex-shrink: 0;
   letter-spacing: -0.5px;
 }
-.logo-pip {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--teal);
-  margin-bottom: 4px;
-  box-shadow: 0 0 0 0 rgba(29,158,117,0.6);
-  animation: pip-pulse 2.4s ease-in-out infinite;
-}
-@keyframes pip-pulse {
-  0%,100%{opacity:1;transform:scale(1);box-shadow:0 0 0 0 rgba(29,158,117,0.45)}
-  50%{opacity:0.7;transform:scale(0.85);box-shadow:0 0 0 6px rgba(29,158,117,0)}
-}
+
 
 .nav-center {
   display: flex;
@@ -307,13 +296,6 @@ nav.scrolled {
   animation: fadeUp 0.6s ease both;
   box-shadow: 0 4px 16px -4px rgba(15,110,86,0.12);
 }
-.hero-badge-dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: var(--teal);
-  animation: pip-pulse 2s infinite;
-}
-
 h1.hero-title {
   font-family: var(--font-display);
   font-size: clamp(56px, 7.8vw, 96px);
@@ -1004,14 +986,6 @@ section.s {
   align-items: center;
   gap: 6px;
 }
-.credits-status-dot {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: var(--teal);
-  box-shadow: 0 0 0 0 rgba(29,158,117,0.6);
-  animation: pip-pulse 2s infinite;
-}
-
 .credits-bar-wrap { margin-bottom: 24px; position: relative; z-index: 1; }
 .credits-bar-labels {
   display: flex;
@@ -1285,7 +1259,7 @@ section.s {
   display: grid;
   grid-template-columns: 1.05fr 1fr;
   gap: 32px;
-  align-items: start;
+  align-items: stretch;
   margin-top: 56px;
 }
 
@@ -1295,6 +1269,8 @@ section.s {
   border-radius: var(--r-xl);
   padding: 28px;
   box-shadow: 0 1px 0 rgba(255,255,255,0.85) inset, 0 14px 40px -14px rgba(15,110,86,0.12);
+  display: flex;
+  flex-direction: column;
 }
 .comp-bars-label {
   font-size: 10.5px;
@@ -1365,7 +1341,7 @@ section.s {
 .comp-bar-row.you .comp-bar-val { color: var(--teal-darker); font-weight: 700; }
 
 .comp-bars-footer {
-  margin-top: 18px;
+  margin-top: auto;
   padding-top: 16px;
   border-top: 0.5px solid rgba(0,0,0,0.06);
   font-size: 11.5px;
@@ -1449,7 +1425,7 @@ section.s {
   grid-template-columns: 1fr 1fr;
   gap: 28px;
   margin-top: 56px;
-  align-items: start;
+  align-items: stretch;
 }
 .calc-controls {
   background: rgba(255,255,255,0.88);
@@ -1457,6 +1433,8 @@ section.s {
   border-radius: var(--r-xl);
   padding: 32px;
   box-shadow: 0 1px 0 rgba(255,255,255,0.85) inset, 0 14px 40px -14px rgba(15,110,86,0.12);
+  display: flex;
+  flex-direction: column;
 }
 .calc-row { margin-bottom: 26px; }
 .calc-row:last-of-type { margin-bottom: 0; }
@@ -1553,7 +1531,7 @@ input[type=range]::-moz-range-thumb {
 .mms-label span { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--gray-400); margin-left: 4px; font-size: 12px; }
 
 .calc-volume-pill {
-  margin-top: 24px;
+  margin-top: auto;
   padding: 14px 16px;
   background: linear-gradient(135deg, rgba(225,245,238,0.7), rgba(159,225,203,0.3));
   border: 0.5px solid rgba(29,158,117,0.18);
@@ -1576,7 +1554,7 @@ input[type=range]::-moz-range-thumb {
   color: var(--teal-darker);
 }
 
-.calc-results { display: flex; flex-direction: column; gap: 10px; }
+.calc-results { display: flex; flex-direction: column; gap: 10px; height: 100%; }
 .calc-result-card {
   background: rgba(255,255,255,0.88);
   border: 0.5px solid rgba(255,255,255,0.8);
@@ -1743,13 +1721,6 @@ details[open] .faq-icon::after  { transform: rotate(90deg); opacity: 0; }
   text-transform: uppercase;
   color: rgba(255,255,255,0.55);
   margin-bottom: 32px;
-}
-.final-badge .dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--teal-light);
-  box-shadow: 0 0 8px var(--teal-light);
-  animation: pip-pulse 2s infinite;
 }
 .final-cta h2 {
   font-family: var(--font-display);
@@ -1949,11 +1920,6 @@ footer {
   letter-spacing: -0.3px;
   display: flex; align-items: center; gap: 6px;
 }
-.tp-title::before {
-  content:''; width: 7px; height: 7px; border-radius: 50%;
-  background: var(--teal); animation: pip-pulse 2.4s ease-in-out infinite;
-  margin-bottom: 3px;
-}
 .tp-close {
   background: rgba(0,0,0,0.04);
   border: none;
@@ -2044,7 +2010,7 @@ footer {
 
 <!-- ─── NAV ─── -->
 <nav>
-  <a href="/" class="logo">Texta<span class="logo-pip"></span></a>
+  <a href="/" class="logo">Texta</a>
   <div class="nav-center">
     <a href="#features">Features</a>
     <a href="#how-it-works">How it works</a>
@@ -2063,7 +2029,6 @@ footer {
 <div class="hero">
   <div class="hero-left">
     <div class="hero-badge">
-      <span class="hero-badge-dot"></span>
       Bulk SMS · Built for small business
     </div>
     <h1 class="hero-title">A <span class="accent">penny</span><br>a text.</h1>
@@ -2338,7 +2303,6 @@ footer {
             <div class="credits-bal-lbl">≈ 5,500 texts remaining</div>
           </div>
           <div class="credits-status">
-            <span class="credits-status-dot"></span>
             Active
           </div>
         </div>
@@ -2572,8 +2536,8 @@ footer {
       </div>
       <div class="comp-bar-row">
         <div class="comp-bar-name">Mobile Text Alerts</div>
-        <div class="comp-bar-track"><div class="comp-bar-fill" style="width:29.4%"></div></div>
-        <div class="comp-bar-val">$88</div>
+        <div class="comp-bar-track"><div class="comp-bar-fill" style="width:28.1%"></div></div>
+        <div class="comp-bar-val">$84</div>
       </div>
       <div class="comp-bar-row">
         <div class="comp-bar-name">SlickText</div>
@@ -2596,7 +2560,7 @@ footer {
         <div class="comp-bar-val">$299</div>
       </div>
 
-      <div class="comp-bars-footer">Public pricing as of May 2026. Per-text rates × volume + monthly base. Mobile Text Alerts: $44 base includes 1,000 msgs.</div>
+      <div class="comp-bars-footer">Public pricing as of May 2026. Per-text rates × volume + monthly base. Mobile Text Alerts: $44 base includes 1,000 credits; additional credits $0.04 each.</div>
     </div>
 
     <div class="check-table-wrap reveal reveal-delay-2">
@@ -2705,7 +2669,7 @@ footer {
       <div class="calc-result-card">
         <div>
           <div class="calc-res-name">Mobile Text Alerts</div>
-          <div class="calc-res-sub">$44 base + 4.4¢/msg over 1k included</div>
+          <div class="calc-res-sub">$44 base · 1k credits incl · 4¢ each after</div>
         </div>
         <div class="calc-res-right">
           <div class="calc-res-price" id="r-mta">$88</div>
@@ -2797,7 +2761,7 @@ footer {
 <!-- ─── FINAL CTA ─── -->
 <div class="final-cta">
   <div class="final-inner">
-    <div class="final-badge"><span class="dot"></span> No contracts · No bloat · No surprises</div>
+    <div class="final-badge">No contracts · No bloat · No surprises</div>
     <h2>Start texting<br>for a <span class="accent">penny</span>.</h2>
     <p>Get $5 in free credits when you sign up. No card required. Send your first campaign in minutes.</p>
     <a href="https://app.texta.me/sign-up" class="btn-final">Create your free account <span class="arr">→</span></a>
@@ -2826,7 +2790,7 @@ footer {
 
 <!-- ─── FOOTER ─── -->
 <footer>
-  <div class="footer-logo">Texta<span class="logo-pip"></span></div>
+  <div class="footer-logo">Texta</div>
   <div class="footer-links">
     <a href="#features">Features</a>
     <a href="#calculator">Calculator</a>
@@ -2853,12 +2817,12 @@ function fmt(n){return '$'+Math.round(n).toLocaleString()}
 
 /* Mobile Text Alerts pricing:
    $44/mo base includes 1,000 message credits.
-   Additional messages billed at $0.044/msg (overage).
-   For MMS they don't have a published per-msg MMS rate, so we use 3× SMS credits (~$0.132/msg) as an estimate. */
-function calcMTA(msgs, mms) {
-  var BASE=44, INCLUDED=1000, RATE=0.044;
-  if(mms) return BASE + msgs * 0.132;
-  var overage = Math.max(0, msgs - INCLUDED);
+   Additional credits: $0.04 each.
+   SMS = 1 credit. MMS = 3 credits. */
+function calcMTA(msgs, segments, mms) {
+  var BASE=44, INCLUDED=1000, RATE=0.04;
+  var credits = mms ? msgs * 3 : msgs * segments;
+  var overage = Math.max(0, credits - INCLUDED);
   return BASE + overage * RATE;
 }
 
@@ -2881,11 +2845,11 @@ function calc(){
   var texta,st,ez,sl,mta;
   if(mms){
     texta=20+msgs*0.025; st=79+msgs*0.08; ez=55+msgs*0.09; sl=59+msgs*0.075;
-    mta=calcMTA(msgs,true);
+    mta=calcMTA(msgs,sg,true);
     document.getElementById('calc-mode-lbl').textContent='$20 base + 2.5¢/MMS';
   } else {
     texta=20+msgs*sg*0.01; st=79+msgs*sg*0.045; ez=55+msgs*sg*0.05; sl=59+msgs*sg*0.04;
-    mta=calcMTA(msgs*sg,false);
+    mta=calcMTA(msgs,sg,false);
     document.getElementById('calc-mode-lbl').textContent='$20 base + 1¢/segment';
   }
 
