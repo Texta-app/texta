@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Texta — A penny a text</title>
-<meta name="description" content="Bulk SMS for small business. $20/month and one cent per text. No contracts, no bloat, no surprises.">
+<meta name="description" content="Bulk SMS for small business. $25/month and one cent per text. No contracts, no bloat, no surprises.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%231D9E75'/><circle cx='50' cy='50' r='8' fill='white'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1881,120 +1881,87 @@ footer {
   body.center-tablet .faq-list { margin-left: auto; margin-right: auto; text-align: left; }
 }
 
-/* Orb glow intensity still controllable via tweaks panel */
-.bg-orb { opacity: calc(var(--orb-base, 1) * var(--orb-opacity-mult, 1)); }
-.bg-orb.a { --orb-base: 1; }
-.bg-orb.b { --orb-base: 1; }
-.bg-orb.c { --orb-base: 1; }
-.bg-orb.d { --orb-base: 1; }
-
-/* ─── TWEAKS PANEL ─── */
-.tweaks-panel {
-  position: fixed;
-  bottom: 20px; right: 20px;
-  z-index: 999;
-  width: 288px;
-  background: rgba(255,255,255,0.94);
-  border: 0.5px solid rgba(255,255,255,0.8);
-  border-radius: 18px;
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.95) inset,
-    0 24px 60px -20px rgba(15,110,86,0.3),
-    0 10px 28px -10px rgba(0,0,0,0.18);
-  font-family: var(--font-body);
-  overflow: hidden;
-  animation: tpIn 0.3s cubic-bezier(.2,.8,.2,1);
-}
-@keyframes tpIn { from { opacity: 0; transform: translateY(12px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
-.tweaks-panel[hidden] { display: none; }
-.tp-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 14px 14px 18px;
-  border-bottom: 0.5px solid rgba(29,158,117,0.12);
-  background: linear-gradient(135deg, rgba(225,245,238,0.55), rgba(255,255,255,0.2));
-}
-.tp-title {
-  font-family: var(--font-display);
-  font-size: 18px;
-  color: var(--ink);
-  letter-spacing: -0.3px;
-  display: flex; align-items: center; gap: 6px;
-}
-.tp-close {
-  background: rgba(0,0,0,0.04);
+/* ─── MOBILE NAV BUTTON + DRAWER ─── */
+.nav-menu-btn {
+  display: none;
+  background: transparent;
   border: none;
-  font-size: 18px;
-  color: var(--gray-500);
+  border-radius: 10px;
+  width: 40px; height: 40px;
+  align-items: center; justify-content: center;
   cursor: pointer;
-  width: 26px; height: 26px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  line-height: 1; padding: 0;
-  transition: all 0.15s;
+  transition: all 0.2s;
+  flex-shrink: 0;
 }
-.tp-close:hover { background: rgba(0,0,0,0.08); color: var(--ink); }
-.tp-section { padding: 8px 18px 16px; }
-.tp-control {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 11px 0;
-  gap: 12px;
+.nav-menu-btn:hover { background: rgba(225,245,238,0.9); }
+.nav-menu-btn span {
+  display: block; width: 18px; height: 1.5px;
+  background: var(--gray-700);
+  border-radius: 2px;
+  position: relative;
+  transition: all 0.25s;
 }
-.tp-control + .tp-control { border-top: 0.5px solid rgba(0,0,0,0.05); }
-.tp-control.vertical { flex-direction: column; align-items: stretch; }
-.tp-control > label {
-  font-size: 13px;
+.nav-menu-btn span::before,
+.nav-menu-btn span::after {
+  content:''; position: absolute; left: 0;
+  width: 100%; height: 100%;
+  background: var(--gray-700);
+  border-radius: 2px;
+  transition: all 0.25s;
+}
+.nav-menu-btn span::before { top: -5px; }
+.nav-menu-btn span::after  { top:  5px; }
+.nav-menu-btn.open span { background: transparent; }
+.nav-menu-btn.open span::before { top: 0; transform: rotate(45deg); }
+.nav-menu-btn.open span::after  { top: 0; transform: rotate(-45deg); }
+
+.mobile-drawer {
+  display: none;
+  position: fixed;
+  top: 80px; left: 10px; right: 10px;
+  z-index: 299;
+  background: rgba(255,255,255,0.97);
+  border: 0.5px solid rgba(255,255,255,0.8);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px -12px rgba(15,110,86,0.22), 0 8px 24px -8px rgba(0,0,0,0.1);
+  padding: 12px;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  pointer-events: none;
+}
+.mobile-drawer.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.mobile-drawer a {
+  display: block;
+  padding: 13px 16px;
+  font-size: 15px;
   font-weight: 500;
   color: var(--gray-700);
-  cursor: pointer;
-  user-select: none;
-  display: flex; justify-content: space-between; align-items: center; flex: 1;
+  border-radius: 12px;
+  transition: all 0.15s;
 }
-.tp-control.vertical > label { margin-bottom: 10px; }
-.tp-val {
-  font-family: var(--font-mono);
-  font-size: 11px;
+.mobile-drawer a:hover { background: rgba(29,158,117,0.07); color: var(--teal-darker); }
+.mobile-drawer-divider {
+  height: 0.5px;
+  background: rgba(29,158,117,0.1);
+  margin: 6px 0;
+}
+.mobile-drawer .drawer-signup {
+  background: var(--ink);
+  color: white;
   font-weight: 600;
-  color: var(--teal-darker);
-  background: rgba(225,245,238,0.85);
-  border: 0.5px solid rgba(29,158,117,0.2);
-  padding: 2px 8px;
-  border-radius: 5px;
-  letter-spacing: 0;
+  text-align: center;
+  margin-top: 4px;
 }
-.tp-toggle {
-  width: 38px; height: 22px;
-  border-radius: 11px;
-  background: var(--gray-200);
-  position: relative;
-  cursor: pointer;
-  transition: background 0.2s;
-  flex-shrink: 0;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05) inset;
-}
-.tp-toggle::after {
-  content:'';
-  position: absolute;
-  width: 16px; height: 16px;
-  left: 3px; top: 3px;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  transition: transform 0.2s;
-}
-.tp-toggle.on { background: var(--teal); box-shadow: 0 2px 6px -2px rgba(29,158,117,0.5); }
-.tp-toggle.on::after { transform: translateX(16px); }
-.tp-section input[type=range] { width: 100%; }
-.tp-hint {
-  font-size: 10.5px;
-  color: var(--gray-400);
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 0.5px dashed rgba(0,0,0,0.08);
-  font-family: var(--font-mono);
-  line-height: 1.5;
-}
-@media (max-width: 600px) {
-  .tweaks-panel { left: 12px; right: 12px; bottom: 12px; width: auto; }
+.mobile-drawer .drawer-signup:hover { background: var(--teal-darker); color: white; }
+
+@media (max-width: 820px) {
+  .nav-menu-btn { display: flex; }
+  .mobile-drawer { display: block; }
 }
 </style>
 </head>
@@ -2021,8 +1988,23 @@ footer {
   <div class="nav-right">
     <a href="https://app.texta.me/sign-in" class="btn-signin">Sign in</a>
     <a href="https://app.texta.me/sign-up" class="btn-signup">Start free <span class="arr">→</span></a>
+    <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+    </button>
   </div>
 </nav>
+
+<!-- ─── MOBILE DRAWER ─── -->
+<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  <a href="#features" class="drawer-link">Features</a>
+  <a href="#how-it-works" class="drawer-link">How it works</a>
+  <a href="#calculator" class="drawer-link">Calculator</a>
+  <a href="#compare" class="drawer-link">Compare</a>
+  <a href="#faq" class="drawer-link">FAQ</a>
+  <div class="mobile-drawer-divider"></div>
+  <a href="https://app.texta.me/sign-in" class="drawer-link">Sign in</a>
+  <a href="https://app.texta.me/sign-up" class="drawer-signup">Start free →</a>
+</div>
 
 <!-- ─── HERO ─── -->
 <div class="hero-shell">
@@ -2032,7 +2014,7 @@ footer {
       Bulk SMS · Built for small business
     </div>
     <h1 class="hero-title">A <span class="accent">penny</span><br>a text.</h1>
-    <p class="hero-sub">$20 a month and one cent per text. No contracts, no bloat, no enterprise pricing designed to confuse you. Just clean, reliable SMS you can actually afford.</p>
+    <p class="hero-sub">$25 a month and one cent per text. No contracts, no bloat, no enterprise pricing designed to confuse you. Just clean, reliable SMS you can actually afford.</p>
     <div class="hero-cta">
       <a href="https://app.texta.me/sign-up" class="btn-cta">Start free <span class="arr">→</span></a>
       <a href="#how-it-works" class="btn-secondary">See how it works</a>
@@ -2143,7 +2125,7 @@ footer {
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#0F6E56" stroke-width="1.5"/><path d="M8 12h8M8 8.5h5M8 15.5h6" stroke="#0F6E56" stroke-width="1.5" stroke-linecap="round"/></svg>
       </div>
       <div>
-        <div class="stat-text-num">$20<span style="font-size:18px;color:var(--gray-400);font-family:var(--font-mono);margin-left:2px;letter-spacing:0">/mo</span></div>
+        <div class="stat-text-num">$25<span style="font-size:18px;color:var(--gray-400);font-family:var(--font-mono);margin-left:2px;letter-spacing:0">/mo</span></div>
         <div class="stat-text-lbl">Flat subscription.<br>Use it as much as you like.</div>
       </div>
     </div>
@@ -2659,7 +2641,7 @@ footer {
       <div class="calc-result-card you">
         <div>
           <div class="calc-res-name">Texta</div>
-          <div class="calc-res-sub" id="calc-mode-lbl">$20 base + 1¢/msg</div>
+          <div class="calc-res-sub" id="calc-mode-lbl">$25 base + 1¢/msg</div>
         </div>
         <div class="calc-res-right">
           <div class="calc-res-price" id="r-texta">$40</div>
@@ -2720,6 +2702,10 @@ footer {
   </div>
   <div class="faq-list reveal reveal-delay-1">
     <details class="faq">
+      <summary>What is 10DLC registration and do I have to do it? <span class="faq-icon"></span></summary>
+      <p class="faq-body">10DLC (10-digit long code) is a carrier-required registration that tells phone networks who you are and what kind of messages you send. It's how the industry fights spam — registered senders get better delivery rates and stay compliant. You only do it once. Texta walks you through the whole process: you fill in your business name, EIN, and a short description of what you text about, then submit. Approval typically takes a few days. Until it's approved, you can send test messages to yourself to make sure everything looks right. There's a one-time $4 brand fee and a $10/month campaign fee — both are passed through to you at cost, with no markup.</p>
+    </details>
+    <details class="faq">
       <summary>What is a text segment? <span class="faq-icon"></span></summary>
       <p class="faq-body">A standard text message holds up to 160 characters. That's one segment — one cent. If your message is longer, it splits into multiple segments at one cent each. Most short messages are a single segment, and the app shows the segment count as you type so there are no surprises.</p>
     </details>
@@ -2769,25 +2755,6 @@ footer {
   </div>
 </div>
 
-<!-- ─── TWEAKS PANEL ─── -->
-<div id="tweaks-panel" class="tweaks-panel" hidden>
-  <div class="tp-header">
-    <div class="tp-title">Tweaks</div>
-    <button class="tp-close" aria-label="Close tweaks">×</button>
-  </div>
-  <div class="tp-section">
-    <div class="tp-control">
-      <label for="tp-centerTablet">Center on tablet</label>
-      <div class="tp-toggle" id="tp-centerTablet" data-key="centerTablet" role="switch" tabindex="0"></div>
-    </div>
-    <div class="tp-control vertical">
-      <label>Glow intensity <span class="tp-val" id="tp-glow-out">81%</span></label>
-      <input type="range" min="0" max="150" value="81" data-key="glow">
-    </div>
-    <div class="tp-hint">Orb animations and backdrop-filter removed for performance. Glow intensity controls orb opacity.</div>
-  </div>
-</div>
-
 <!-- ─── FOOTER ─── -->
 <footer>
   <div class="footer-logo">Texta</div>
@@ -2796,7 +2763,7 @@ footer {
     <a href="#calculator">Calculator</a>
     <a href="#compare">Compare</a>
     <a href="#faq">FAQ</a>
-    <a href="/privacy">Privacy</a>
+    <a href="mailto:support@texta.me?subject=Privacy Policy">Privacy</a>
     <a href="/terms">Terms</a>
     <a href="mailto:support@texta.me">Support</a>
   </div>
@@ -2844,13 +2811,13 @@ function calc(){
 
   var texta,st,ez,sl,mta;
   if(mms){
-    texta=20+msgs*0.025; st=79+msgs*0.08; ez=55+msgs*0.09; sl=59+msgs*0.075;
+    texta=25+msgs*0.025; st=79+msgs*0.08; ez=55+msgs*0.09; sl=59+msgs*0.075;
     mta=calcMTA(msgs,sg,true);
-    document.getElementById('calc-mode-lbl').textContent='$20 base + 2.5¢/MMS';
+    document.getElementById('calc-mode-lbl').textContent='$25 base + 2.5¢/MMS';
   } else {
-    texta=20+msgs*sg*0.01; st=79+msgs*sg*0.045; ez=55+msgs*sg*0.05; sl=59+msgs*sg*0.04;
+    texta=25+msgs*sg*0.01; st=79+msgs*sg*0.045; ez=55+msgs*sg*0.05; sl=59+msgs*sg*0.04;
     mta=calcMTA(msgs,sg,false);
-    document.getElementById('calc-mode-lbl').textContent='$20 base + 1¢/segment';
+    document.getElementById('calc-mode-lbl').textContent='$25 base + 1¢/segment';
   }
 
   document.getElementById('r-texta').textContent=fmt(texta);
@@ -2875,53 +2842,33 @@ var io=new IntersectionObserver(function(entries){
 },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
 
-/* TWEAKS PANEL */
+
+/* MOBILE NAV */
 (function(){
-  var TWEAK_DEFAULTS={centerTablet:true,glow:81};
-  var tweaks=Object.assign({},TWEAK_DEFAULTS);
-  var panel=document.getElementById('tweaks-panel');
-
-  function apply(){
-    document.body.classList.toggle('center-tablet',!!tweaks.centerTablet);
-    document.body.style.setProperty('--orb-opacity-mult',(tweaks.glow/100).toFixed(2));
-    var out=document.getElementById('tp-glow-out');
-    if(out) out.textContent=tweaks.glow+'%';
-    panel.querySelectorAll('.tp-toggle').forEach(function(t){
-      var on=!!tweaks[t.dataset.key];
-      t.classList.toggle('on',on);
-      t.setAttribute('aria-checked',on?'true':'false');
-    });
-    panel.querySelectorAll('input[type=range]').forEach(function(r){
-      if(r.value!=tweaks[r.dataset.key]) r.value=tweaks[r.dataset.key];
-    });
+  var btn=document.getElementById('nav-menu-btn');
+  var drawer=document.getElementById('mobile-drawer');
+  function close(){
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
   }
-
-  function setKey(k,v){
-    tweaks[k]=v;
-    apply();
-    try{var e={};e[k]=v;window.parent.postMessage({type:'__edit_mode_set_keys',edits:e},'*');}catch(ex){}
-  }
-
-  panel.querySelectorAll('.tp-toggle').forEach(function(t){
-    t.addEventListener('click',function(){setKey(t.dataset.key,!tweaks[t.dataset.key]);});
-    t.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();setKey(t.dataset.key,!tweaks[t.dataset.key]);}});
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    var isOpen=drawer.classList.contains('open');
+    if(isOpen){ close(); } else {
+      btn.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      drawer.classList.add('open');
+      drawer.setAttribute('aria-hidden','false');
+    }
   });
-  panel.querySelectorAll('input[type=range]').forEach(function(r){
-    r.addEventListener('input',function(){setKey(r.dataset.key,parseInt(r.value,10));});
+  drawer.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',close);
   });
-  panel.querySelector('.tp-close').addEventListener('click',function(){
-    panel.hidden=true;
-    try{window.parent.postMessage({type:'__edit_mode_dismissed'},'*');}catch(e){}
+  document.addEventListener('click',function(e){
+    if(!drawer.contains(e.target) && e.target!==btn){ close(); }
   });
-
-  window.addEventListener('message',function(e){
-    if(!e.data) return;
-    if(e.data.type==='__activate_edit_mode') panel.hidden=false;
-    if(e.data.type==='__deactivate_edit_mode') panel.hidden=true;
-  });
-
-  apply();
-  try{window.parent.postMessage({type:'__edit_mode_available'},'*');}catch(e){}
 })();
 
 /* SUBTLE PARALLAX — orbs only move on scroll, no continuous animation */
